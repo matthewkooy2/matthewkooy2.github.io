@@ -437,7 +437,7 @@ export default function TetrisMini() {
         <div>
           <p className="text-sm font-medium text-zinc-50">Mini Tetris</p>
           <p className="mt-1 text-xs text-zinc-400">
-            Click to focus. ← → ↓ rotate(↑) drop(space) pause(P) reset(R)
+            rotate(↑) drop(space) pause(P) reset(R)
           </p>
         </div>
 

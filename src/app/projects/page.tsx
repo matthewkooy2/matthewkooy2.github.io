@@ -1,86 +1,200 @@
+import Image from "next/image";
 import Link from "next/link";
 
-export default function ProjectsPage() {
-  const projects = [
-    {
-      id: 1,
-      name: "Project Name",
-      description:
-        "One-sentence description of what it is and why it matters.",
-      tags: ["TypeScript", "Next.js", "Tailwind"],
-      links: {
-        repo: "https://github.com/yourname/your-repo",
-        demo: "",
-      },
-    },
-    {
-      id: 2, 
-      name: "Project Name",
-      description: "Another short description (keep it punchy).",
-      tags: ["C++", "Algorithms", "Performance"],
-      links: {
-        repo: "https://github.com/yourname/your-repo",
-        demo: "",
-      },
-    },
-  ];
+type Project = {
+  id: string;
+  category: string; // e.g., "Embedded", "ML", "Web"
+  title: string;
+  description: string;
+  image: string; // path in /public
+  tags: string[];
+  href?: string; // live/demo
+  code?: string; // github
+};
 
+const PROJECTS: Project[] = [
+  {
+    id: "trading-engine",
+    category: "Systems",
+    title: "High-performance trading engine",
+    description:
+      "C++ order matching + streaming ingestion built for speed and correctness.",
+    image: "/projects/trading.avif",
+    tags: ["C++", "Data Structures", "Perf", "Systems"],
+    href: "/projects", // replace with your demo link if you have it
+    code: "https://github.com/matthewkooy2",
+  },
+  {
+    id: "workday-automation",
+    category: "Automation",
+    title: "Workday application automation",
+    description:
+      "Playwright-based workflows to reduce repetitive form entry and enforce clean inputs.",
+    image: "/projects/automation.png",
+    tags: ["Python", "Playwright", "Automation", "Testing"],
+    href: "/projects",
+    code: "https://github.com/matthewkooy2",
+  },
+  {
+    id: "sports-analytics",
+    category: "Analytics",
+    title: "Sports analytics tooling",
+    description:
+      "Basketball profiling + insights designed to be usable for coaches and teams.",
+    image: "/projects/sports.png",
+    tags: ["Analytics", "Python", "Modeling", "Viz"],
+    href: "/projects",
+    code: "https://github.com/matthewkooy2",
+  },
+];
+
+function IconExternal(props: { className?: string }) {
   return (
-    <main className="mx-auto max-w-5xl px-6 py-12">
-      <header className="max-w-2xl">
-        <h1 className="text-3xl font-semibold tracking-tight text-zinc-950">
+    <svg viewBox="0 0 24 24" aria-hidden="true" className={props.className}>
+      <path
+        fill="currentColor"
+        d="M14 3h7v7h-2V6.41l-9.29 9.3-1.42-1.42 9.3-9.29H14V3ZM5 5h6v2H7v10h10v-4h2v6H5V5Z"
+      />
+    </svg>
+  );
+}
+
+function IconCode(props: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" className={props.className}>
+      <path
+        fill="currentColor"
+        d="M8.7 16.3 3.4 12l5.3-4.3 1.3 1.6L6.7 12l3.3 2.7-1.3 1.6Zm6.6 0-1.3-1.6 3.3-2.7-3.3-2.7 1.3-1.6 5.3 4.3-5.3 4.3Zm-3.6 4.2-1.9-.5 4.4-16 1.9.5-4.4 16Z"
+      />
+    </svg>
+  );
+}
+
+function ProjectCard({ p }: { p: Project }) {
+  return (
+    <article
+      className={[
+        "group relative overflow-hidden rounded-2xl",
+        "border border-white/10 bg-white/[0.04] shadow-[0_0_0_1px_rgba(255,255,255,0.04)]",
+        "backdrop-blur",
+        "transition hover:border-white/20 hover:bg-white/[0.06]",
+      ].join(" ")}
+    >
+      {/* image */}
+      <div className="relative h-44 w-full overflow-hidden">
+        <Image
+          src={p.image}
+          alt={p.title}
+          fill
+          className="object-cover transition duration-500 group-hover:scale-[1.03]"
+          sizes="(max-width: 768px) 100vw, 33vw"
+          priority={false}
+        />
+
+        {/* subtle image overlay */}
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-black/10" />
+
+        {/* category pill */}
+        <div className="absolute left-4 top-4">
+          <span className="inline-flex items-center rounded-md border border-white/10 bg-black/30 px-2.5 py-1 text-xs font-semibold text-zinc-100 backdrop-blur">
+            {p.category}
+          </span>
+        </div>
+
+        {/* top-right actions */}
+        <div className="absolute right-3 top-3 flex items-center gap-2">
+          {p.href && (
+            <Link
+              href={p.href}
+              className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 bg-black/30 text-zinc-100 backdrop-blur transition hover:bg-black/40"
+              aria-label="Open project"
+              title="Open"
+            >
+              <IconExternal className="h-4 w-4" />
+            </Link>
+          )}
+          {p.code && (
+            <Link
+              href={p.code}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 bg-black/30 text-zinc-100 backdrop-blur transition hover:bg-black/40"
+              aria-label="View code"
+              title="Code"
+            >
+              <IconCode className="h-4 w-4" />
+            </Link>
+          )}
+        </div>
+      </div>
+
+      {/* content */}
+      <div className="p-5">
+        <h3 className="text-lg font-semibold tracking-tight text-zinc-50">
+          {p.title}
+        </h3>
+
+        <p className="mt-2 text-sm leading-6 text-zinc-300">{p.description}</p>
+
+        {/* tags */}
+        <div className="mt-4 flex flex-wrap gap-2">
+          {p.tags.map((t) => (
+            <span
+              key={`${p.id}-${t}`}
+              className="rounded-md border border-white/10 bg-white/[0.03] px-2 py-1 text-xs font-semibold text-zinc-200"
+            >
+              {t}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      {/* hover glow */}
+      <div className="pointer-events-none absolute inset-0 opacity-0 transition group-hover:opacity-100">
+        <div className="absolute -left-16 -top-16 h-64 w-64 rounded-full bg-fuchsia-500/10 blur-3xl" />
+        <div className="absolute -right-16 -bottom-20 h-72 w-72 rounded-full bg-indigo-500/10 blur-3xl" />
+      </div>
+    </article>
+  );
+}
+
+export default function ProjectsPage() {
+  return (
+    <div className="relative w-full">
+      {/* full-bleed background (grid + glow) */}
+      <div className="pointer-events-none absolute inset-0 -z-10">
+        {/* grid */}
+        <div
+          className="absolute inset-0 opacity-[0.18]"
+          style={{
+            backgroundImage:
+              "linear-gradient(to right, rgba(255,255,255,0.07) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.07) 1px, transparent 1px)",
+            backgroundSize: "48px 48px",
+          }}
+        />
+        {/* vignettes */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(255,255,255,0.08),transparent_55%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,rgba(0,0,0,0.55),transparent_45%)]" />
+        {/* glows */}
+        <div className="absolute -top-56 left-1/2 h-[820px] w-[820px] -translate-x-1/2 rounded-full bg-gradient-to-br from-indigo-500/18 via-fuchsia-500/12 to-cyan-500/10 blur-3xl" />
+        <div className="absolute bottom-[-420px] left-[-360px] h-[820px] w-[820px] rounded-full bg-gradient-to-br from-fuchsia-500/14 via-indigo-500/10 to-transparent blur-3xl" />
+        <div className="absolute bottom-[-380px] right-[-420px] h-[760px] w-[760px] rounded-full bg-gradient-to-br from-cyan-500/12 via-indigo-500/10 to-transparent blur-3xl" />
+      </div>
+
+      <main className="mx-auto max-w-6xl px-6 py-12">
+        <h1 className="text-3xl font-semibold tracking-tight text-zinc-50">
           Projects
         </h1>
-        <p className="mt-3 text-zinc-600">
-          Selected work—focused on performance, data, and clean engineering.
+        <p className="mt-4 max-w-3xl text-xl font-semibold leading-snug tracking-tight text-zinc-100">
+          A curated set of builds across software, analytics, and systems.
         </p>
-      </header>
 
-      <section className="mt-10 grid gap-6 sm:grid-cols-2">
-        {projects.map((p) => (
-          <article
-            key={p.id}
-            className="rounded-xl border border-zinc-200 bg-white p-6 shadow-sm transition hover:border-zinc-300"
-          >
-            <h2 className="text-lg font-semibold text-zinc-950">{p.name}</h2>
-            <p className="mt-2 text-sm leading-6 text-zinc-600">
-              {p.description}
-            </p>
-
-            <div className="mt-4 flex flex-wrap gap-2">
-              {p.tags.map((t) => (
-                <span
-                  key={t}
-                  className="rounded-md border border-zinc-200 bg-zinc-50 px-2.5 py-1 text-xs font-medium text-zinc-700"
-                >
-                  {t}
-                </span>
-              ))}
-            </div>
-
-            <div className="mt-5 flex flex-wrap gap-3">
-              <Link
-                href={p.links.repo}
-                className="text-sm font-semibold text-zinc-900 underline underline-offset-4 hover:text-zinc-950"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Repo
-              </Link>
-              {p.links.demo ? (
-                <Link
-                  href={p.links.demo}
-                  className="text-sm font-semibold text-zinc-900 underline underline-offset-4 hover:text-zinc-950"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  Live Demo
-                </Link>
-              ) : null}
-            </div>
-          </article>
-        ))}
-      </section>
-    </main>
+        <section className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {PROJECTS.map((p) => (
+            <ProjectCard key={p.id} p={p} />
+          ))}
+        </section>
+      </main>
+    </div>
   );
 }
