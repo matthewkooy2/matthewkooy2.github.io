@@ -3,6 +3,7 @@ import Link from "next/link";
 export default function ProjectsPage() {
   const projects = [
     {
+      id: 1,
       name: "Project Name",
       description:
         "One-sentence description of what it is and why it matters.",
@@ -13,6 +14,7 @@ export default function ProjectsPage() {
       },
     },
     {
+      id: 2, 
       name: "Project Name",
       description: "Another short description (keep it punchy).",
       tags: ["C++", "Algorithms", "Performance"],
@@ -37,7 +39,7 @@ export default function ProjectsPage() {
       <section className="mt-10 grid gap-6 sm:grid-cols-2">
         {projects.map((p) => (
           <article
-            key={p.name}
+            key={p.id}
             className="rounded-xl border border-zinc-200 bg-white p-6 shadow-sm transition hover:border-zinc-300"
           >
             <h2 className="text-lg font-semibold text-zinc-950">{p.name}</h2>

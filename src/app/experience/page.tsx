@@ -1,6 +1,7 @@
 export default function ExperiencePage() {
   const experience = [
     {
+      id: 1,
       title: "Role Title",
       org: "Company / Organization",
       dates: "Month YYYY — Month YYYY",
@@ -10,6 +11,7 @@ export default function ExperiencePage() {
       ],
     },
     {
+      id: 2,
       title: "Role Title",
       org: "Company / Organization",
       dates: "Month YYYY — Month YYYY",
@@ -35,7 +37,7 @@ export default function ExperiencePage() {
       <section className="mt-10 space-y-6">
         {experience.map((item) => (
           <div
-            key={`${item.title}-${item.org}-${item.dates}`}
+            key={`${item.id}-${item.org}-${item.dates}`}
             className="rounded-xl border border-zinc-200 bg-white p-6 shadow-sm"
           >
             <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
