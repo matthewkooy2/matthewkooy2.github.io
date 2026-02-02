@@ -14,36 +14,43 @@ type Project = {
 
 const PROJECTS: Project[] = [
   {
-    id: "trading-engine",
+    id: "stock-simulator",
     category: "Systems",
-    title: "High-performance trading engine",
+    title: "Stock Simulator",
     description:
-      "C++ order matching + streaming ingestion built for speed and correctness.",
+      "C++ order-matching engine with O(log n) latency on 100K+ events and 2M ticks/sec market data ingestion.",
     image: "/projects/trading.avif",
-    tags: ["C++", "Data Structures", "Perf", "Systems"],
-    href: "/projects", // replace with your demo link if you have it
+    tags: ["C++", "Data Structures", "Performance", "Algorithms"],
     code: "https://github.com/matthewkooy2",
   },
   {
-    id: "workday-automation",
-    category: "Automation",
-    title: "Workday application automation",
+    id: "sql-emulator",
+    category: "Systems",
+    title: "SQL Database Emulator",
     description:
-      "Playwright-based workflows to reduce repetitive form entry and enforce clean inputs.",
-    image: "/projects/automation.png",
-    tags: ["Python", "Playwright", "Automation", "Testing"],
-    href: "/projects",
+      "In-memory SQL engine in C++ with parsing, indexing, and test-driven validation for structured queries.",
+    image: "/projects/SQLexamp.png",
+    tags: ["C++", "Databases", "Parsing", "Indexing"],
     code: "https://github.com/matthewkooy2",
   },
   {
-    id: "sports-analytics",
-    category: "Analytics",
-    title: "Sports analytics tooling",
+    id: "ml-classifier",
+    category: "Machine Learning",
+    title: "Machine Learning Text Classifier",
     description:
-      "Basketball profiling + insights designed to be usable for coaches and teams.",
-    image: "/projects/sports.png",
-    tags: ["Analytics", "Python", "Modeling", "Viz"],
-    href: "/projects",
+      "Bernoulli Naive Bayes classifier in C++ trained on 20K+ posts with 25 unit tests for validation.",
+    image: "/projects/MLTEXT.jpg",
+    tags: ["C++", "Machine Learning", "NLP", "Testing"],
+    code: "https://github.com/matthewkooy2",
+  },
+  {
+    id: "puzzle-solver",
+    category: "Algorithms",
+    title: "3D Puzzle Solver",
+    description:
+      "Explores 1M+ states in under 2 seconds using BFS and DFS optimization strategies.",
+    image: "/projects/BFSDFS.webp",
+    tags: ["C++", "BFS", "DFS", "Optimization"],
     code: "https://github.com/matthewkooy2",
   },
 ];
