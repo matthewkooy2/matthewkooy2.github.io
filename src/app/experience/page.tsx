@@ -48,63 +48,46 @@ type Experience = {
 
 const EXPERIENCES: Experience[] = [
   {
-    id: "exp-1",
-    title: "Position Title",
-    company: "Company Name",
-    location: "City, State",
-    dates: "May 2024 — Present",
-    type: "work",
-    logo: "/placeholder-logo.png", // Replace with actual logo
-    bullets: [
-      "Led development of data pipeline processing 10M+ records daily, reducing latency by 40%",
-      "Built predictive models achieving 92% accuracy for customer churn prediction",
-      "Collaborated with cross-functional teams to deliver insights driving $2M in revenue",
-    ],
-    skills: ["Python", "SQL", "AWS", "Spark"],
-  },
-  {
-    id: "exp-2",
-    title: "Research Assistant",
-    company: "University of Michigan",
+    id: "michigan-blockchain",
+    title: "Software Engineer, Development Team",
+    company: "Michigan Blockchain Club",
     location: "Ann Arbor, MI",
-    dates: "Jan 2024 — May 2024",
-    type: "research",
-    logo: "/umich-logo.png",
-    bullets: [
-      "Conducted econometric analysis on energy market data using R and Stata",
-      "Developed regression models to analyze policy impacts on renewable adoption",
-      "Co-authored research paper currently under review for publication",
-    ],
-    skills: ["R", "Stata", "Econometrics", "Research"],
-  },
-  {
-    id: "exp-3",
-    title: "Data Analyst Intern",
-    company: "Company Name",
-    location: "City, State",
-    dates: "May 2023 — Aug 2023",
+    dates: "January 2025 — Present",
     type: "work",
-    logo: "/placeholder-logo.png",
+    logo: "/mb-logo.png",
     bullets: [
-      "Automated reporting workflows saving 15+ hours weekly for the analytics team",
-      "Created interactive dashboards in Tableau visualizing KPIs for executives",
-      "Performed A/B test analysis informing product decisions for 100K+ users",
+      "Automated ingestion and transformation of smart contract metrics in Python (pandas), cleaning 25K+ rows, and publishing analytics-ready tables that improved anomaly detection and reliability of downstream reporting",
+      "Coordinated Git reviews with 3 teammates across 8 pull requests, maintaining traceable changes and reproducible outputs",
     ],
-    skills: ["Python", "Tableau", "SQL", "Excel"],
+    skills: ["Python", "Pandas", "Git", "Data Engineering"],
   },
   {
-    id: "exp-4",
-    title: "Club Leadership Role",
-    company: "Student Organization",
+    id: "wolverine-sports",
+    title: "Project Team Lead",
+    company: "Wolverine Sports Analytics",
     location: "Ann Arbor, MI",
-    dates: "Sep 2022 — Present",
-    type: "leadership",
-    logo: "/placeholder-logo.png",
+    dates: "January 2025 — Present",
+    type: "work",
+    logo: "/WSA-logo.png",
     bullets: [
-      "Managed team of 10+ members organizing workshops and networking events",
-      "Grew membership by 50% through strategic outreach and programming",
+      "Modeled NBA player stat forecasts with Python regression across 1K+ games, producing structured feature tables that improved interpretability, error tracking, and repeatable decision support for weekly analysis planning",
+      "Derived 20+ matchup and defense features with validation checks, reducing noisy outputs for high-variance players",
     ],
-    skills: ["Leadership", "Project Management", "Communication"],
+    skills: ["Python", "Regression", "Sports Analytics", "Feature Engineering"],
+  },
+  {
+    id: "ipo-investing",
+    title: "Junior Analyst",
+    company: "IPO Investing Club",
+    location: "Ann Arbor, MI",
+    dates: "January 2024 — Present",
+    type: "work",
+    logo: "/IIC-logo.jpeg",
+    bullets: [
+      "Compiled KPI, growth, and margin comparisons in Excel, building a repeatable reporting pack for 12 metrics per company to support clearer narratives, tighter stakeholder alignment, and faster turnaround on follow-up questions",
+      "Standardized valuation templates and assumption logs, improving data consistency across recurring coverage updates",
+    ],
+    skills: ["Excel", "Financial Analysis", "Valuation", "Reporting"],
   },
 ];
 
@@ -151,24 +134,20 @@ function ExperienceCard({ exp, index }: { exp: Experience; index: number }) {
 
         <div className="relative flex flex-col md:flex-row">
           {/* Logo Section */}
-          <div className="flex items-center justify-center border-b border-white/10 bg-white/[0.02] p-6 md:w-48 md:border-b-0 md:border-r">
-            <div className="relative h-20 w-20 overflow-hidden rounded-xl border border-white/10 bg-white/[0.05] p-2">
+          <div className="flex items-center justify-center border-b border-white/10 bg-white/[0.02] p-6 md:w-56 md:border-b-0 md:border-r">
+            <div className="relative h-28 w-28 overflow-hidden rounded-2xl border border-white/10 bg-white/[0.05]">
               {exp.logo ? (
                 <Image
                   src={exp.logo}
                   alt={`${exp.company} logo`}
                   fill
-                  className="object-contain p-2"
-                  onError={(e) => {
-                    // Fallback to placeholder on error
-                    e.currentTarget.style.display = "none";
-                  }}
+                  className="object-contain p-3"
                 />
-              ) : null}
-              {/* Fallback placeholder */}
-              <div className="absolute inset-0 flex items-center justify-center text-2xl font-bold text-zinc-500">
-                {exp.company.charAt(0)}
-              </div>
+              ) : (
+                <div className="absolute inset-0 flex items-center justify-center text-3xl font-bold text-zinc-500">
+                  {exp.company.charAt(0)}
+                </div>
+              )}
             </div>
           </div>
 
