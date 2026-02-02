@@ -47,7 +47,7 @@ export default function Home() {
 
               <p className="mt-4 text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
                 I am a Junior at the University of Michigan with declared majors in Data Science and Economics.
-                My love for this field derives from the joy it brings me to turn an idea into a system. A quick thought can 
+                My love for this field derives from the joy it brings me to turn an idea into a system. A simple thought can 
                 rapidly grow into a functional project, improving the lives of millions, and that inspires me.
               </p>
 
