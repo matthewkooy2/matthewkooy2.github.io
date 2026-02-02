@@ -36,13 +36,7 @@ function useScrollReveal() {
 }
 
 // Skill data
-const LANGUAGES = [
-  { name: "Python", level: 90 },
-  { name: "C++", level: 75 },
-  { name: "SQL", level: 85 },
-  { name: "R", level: 70 },
-  { name: "Next.js", level: 65 },
-];
+const LANGUAGES = ["Python", "C++", "SQL", "R", "Next.js"];
 
 const TOOLS = [
   "Pandas",
@@ -93,21 +87,16 @@ const CATEGORY_BORDERS: Record<string, string> = {
   Economics: "border-fuchsia-500/30",
 };
 
-function SkillBar({ name, level, delay }: { name: string; level: number; delay: number }) {
+function LanguageCard({ name, delay }: { name: string; delay: number }) {
   return (
     <div
-      className="reveal-on-scroll opacity-0 translate-y-4"
+      className="reveal-on-scroll opacity-0 scale-95 group relative"
       style={{ transitionDelay: `${delay}ms` }}
     >
-      <div className="flex items-center justify-between mb-1.5">
-        <span className="text-sm font-medium text-zinc-200">{name}</span>
-        <span className="text-xs text-zinc-400">{level}%</span>
-      </div>
-      <div className="h-2 w-full rounded-full bg-white/[0.08] overflow-hidden">
-        <div
-          className="skill-bar-fill h-full rounded-full bg-gradient-to-r from-indigo-500 via-fuchsia-500 to-cyan-500"
-          style={{ width: `${level}%` }}
-        />
+      {/* Gradient border effect */}
+      <div className="absolute -inset-[1px] rounded-xl bg-gradient-to-r from-indigo-500/50 via-fuchsia-500/50 to-cyan-500/50 opacity-0 blur-sm transition-opacity duration-300 group-hover:opacity-100" />
+      <div className="relative flex items-center justify-center rounded-xl border border-white/15 bg-white/[0.06] px-5 py-3 backdrop-blur transition-all duration-300 hover:bg-white/[0.10] hover:border-white/25">
+        <span className="text-base font-semibold text-zinc-100">{name}</span>
       </div>
     </div>
   );
@@ -198,7 +187,7 @@ export default function AboutPage() {
                     src="/selfflick.jpg"
                     alt="Matthew Kooy"
                     fill
-                    className="object-cover transition-transform duration-500 hover:scale-110"
+                    className="object-cover object-[center_25%] transition-transform duration-500 hover:scale-110"
                     priority
                   />
                 </div>
@@ -259,9 +248,9 @@ export default function AboutPage() {
               <h3 className="text-sm font-semibold uppercase tracking-wider text-zinc-400">
                 Languages
               </h3>
-              <div className="mt-5 flex flex-col gap-4">
+              <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3">
                 {LANGUAGES.map((lang, i) => (
-                  <SkillBar key={lang.name} name={lang.name} level={lang.level} delay={300 + i * 100} />
+                  <LanguageCard key={lang} name={lang} delay={300 + i * 75} />
                 ))}
               </div>
             </div>
