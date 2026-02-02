@@ -104,18 +104,18 @@ export default function Home() {
           <div className="grid gap-4 md:grid-cols-3">
             {[
               {
-                title: "High-performance trading engine",
-                desc: "C++ order matching + streaming ingestion built for speed and correctness.",
+                title: "Stock Simulator",
+                desc: "C++ order-matching engine with O(log n) latency on 100K+ events and 2M ticks/sec ingestion.",
                 href: "/projects",
               },
               {
-                title: "Automation & data workflows",
-                desc: "Scripts and pipelines that remove busywork and enforce clean inputs.",
+                title: "SQL Database Emulator",
+                desc: "In-memory SQL engine in C++ with parsing, indexing, and test-driven validation.",
                 href: "/projects",
               },
               {
-                title: "Sports analytics",
-                desc: "Basketball profiling + insights designed to be usable for coaches/teams.",
+                title: "ML Text Classifier",
+                desc: "Bernoulli Naive Bayes classifier trained on 20K+ posts with comprehensive unit testing.",
                 href: "/projects",
               },
             ].map((card) => (

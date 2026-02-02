@@ -3,9 +3,11 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 
 type Cell = 0 | 1;
+type Piece = { type: string; rot: number; x: number; y: number };
 
 const COLS = 10;
 const ROWS = 18;
+const PREVIEW_SIZE = 4; // 4x4 preview grid
 
 // Tetriminos (4x4) in 4 rotations (0,1,2,3)
 const SHAPES: Record<string, number[][][]> = {
@@ -205,6 +207,55 @@ function cloneBoard(b: Cell[][]): Cell[][] {
   return b.map((r) => r.slice()) as Cell[][];
 }
 
+// Preview component for hold/next pieces
+function PiecePreview({ piece, label }: { piece: Piece | null; label: string }) {
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const cellSize = 10;
+  const size = PREVIEW_SIZE * cellSize;
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    ctx.clearRect(0, 0, size, size);
+
+    // Draw empty grid
+    for (let r = 0; r < PREVIEW_SIZE; r++) {
+      for (let c = 0; c < PREVIEW_SIZE; c++) {
+        ctx.fillStyle = "rgba(255,255,255,0.04)";
+        ctx.fillRect(c * cellSize + 1, r * cellSize + 1, cellSize - 2, cellSize - 2);
+      }
+    }
+
+    // Draw piece if exists
+    if (piece) {
+      const shape = SHAPES[piece.type][0]; // Always show rotation 0 for preview
+      for (let r = 0; r < 4; r++) {
+        for (let c = 0; c < 4; c++) {
+          if (shape[r][c]) {
+            ctx.fillStyle = "rgba(255,255,255,0.85)";
+            ctx.fillRect(c * cellSize + 1, r * cellSize + 1, cellSize - 2, cellSize - 2);
+          }
+        }
+      }
+    }
+  }, [piece, size, cellSize]);
+
+  return (
+    <div className="flex flex-col items-center">
+      <span className="text-[10px] font-medium text-zinc-500 mb-1">{label}</span>
+      <canvas
+        ref={canvasRef}
+        width={size}
+        height={size}
+        className="rounded border border-white/10 bg-black/20"
+      />
+    </div>
+  );
+}
+
 function randPiece() {
   const type = PIECES[Math.floor(Math.random() * PIECES.length)];
   return { type, rot: 0, x: Math.floor(COLS / 2) - 2, y: -1 };
@@ -267,6 +318,9 @@ export default function TetrisMini() {
 
   const [board, setBoard] = useState<Cell[][]>(() => emptyBoard());
   const [piece, setPiece] = useState(() => randPiece());
+  const [nextPiece, setNextPiece] = useState(() => randPiece());
+  const [holdPiece, setHoldPiece] = useState<Piece | null>(null);
+  const [canHold, setCanHold] = useState(true);
   const [score, setScore] = useState(0);
   const [lines, setLines] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
@@ -292,8 +346,12 @@ export default function TetrisMini() {
     return b;
   }, [board, piece]);
 
+  // Use a ref to track the next piece for spawning
+  const nextPieceRef = useRef(nextPiece);
+  nextPieceRef.current = nextPiece;
+
   function lockAndSpawn(
-    currPiece: ReturnType<typeof randPiece>,
+    currPiece: Piece,
     currBoard: Cell[][]
   ) {
     const merged = merge(currBoard, currPiece);
@@ -305,18 +363,27 @@ export default function TetrisMini() {
     }
 
     setBoard(clearedBoard);
+    setCanHold(true); // Allow hold again after piece locks
 
-    const next = randPiece();
-    if (collides(clearedBoard, next, 0, 0, 0)) {
+    const spawning = nextPieceRef.current;
+
+    // Check for game over
+    if (collides(clearedBoard, spawning, 0, 0, 0)) {
       setIsGameOver(true);
-      return next;
     }
-    return next;
+
+    // Generate new next piece
+    setNextPiece(randPiece());
+
+    return spawning;
   }
 
   function reset() {
     setBoard(emptyBoard());
     setPiece(randPiece());
+    setNextPiece(randPiece());
+    setHoldPiece(null);
+    setCanHold(true);
     setScore(0);
     setLines(0);
     setIsPaused(false);
@@ -336,6 +403,7 @@ export default function TetrisMini() {
     }, 450);
 
     return () => window.clearInterval(interval);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [board, isPaused, isGameOver]);
 
   // Canvas render
@@ -373,7 +441,9 @@ export default function TetrisMini() {
       k === "ArrowRight" ||
       k === "ArrowDown" ||
       k === "ArrowUp" ||
-      k === " "
+      k === " " ||
+      k === "c" ||
+      k === "C"
     ) {
       e.preventDefault();
     }
@@ -388,6 +458,23 @@ export default function TetrisMini() {
     }
 
     if (isPaused || isGameOver) return;
+
+    // Hold piece (C key)
+    if ((k === "c" || k === "C") && canHold) {
+      setCanHold(false);
+      if (holdPiece === null) {
+        // First hold: store current piece, spawn next
+        setHoldPiece({ ...piece, x: Math.floor(COLS / 2) - 2, y: -1, rot: 0 });
+        setPiece(nextPiece);
+        setNextPiece(randPiece());
+      } else {
+        // Swap current piece with held piece
+        const temp = { ...piece, x: Math.floor(COLS / 2) - 2, y: -1, rot: 0 };
+        setPiece({ ...holdPiece, x: Math.floor(COLS / 2) - 2, y: -1, rot: 0 });
+        setHoldPiece(temp);
+      }
+      return;
+    }
 
     setPiece((p) => {
       if (k === "ArrowLeft" && !collides(board, p, -1, 0, 0))
@@ -437,7 +524,7 @@ export default function TetrisMini() {
         <div>
           <p className="text-sm font-medium text-zinc-50">Mini Tetris</p>
           <p className="mt-1 text-xs text-zinc-400">
-            rotate(↑) drop(space) pause(P) reset(R)
+            ↑ rotate · space drop · C hold
           </p>
         </div>
 
@@ -451,40 +538,54 @@ export default function TetrisMini() {
         </div>
       </div>
 
-      <div className="relative mt-4 flex items-center justify-center">
-        <canvas
-          ref={canvasRef}
-          width={W}
-          height={H}
-          className="rounded-xl border border-white/10 bg-black/30"
-        />
+      <div className="relative mt-4 flex items-center justify-center gap-3">
+        {/* Hold piece preview */}
+        <div className="flex flex-col gap-2">
+          <PiecePreview piece={holdPiece} label="HOLD" />
+          {!canHold && holdPiece && (
+            <div className="h-1 w-full rounded bg-zinc-600/50" />
+          )}
+        </div>
 
-        {(isPaused || isGameOver) && (
-          <div className="absolute inset-0 flex items-center justify-center rounded-xl border border-white/10 bg-black/55 text-center">
-            <div>
-              <div className="text-lg font-semibold text-white">
-                {isGameOver ? "Game Over" : "Paused"}
-              </div>
-              <div className="mt-1 text-sm text-zinc-300">
-                Press {isGameOver ? "R to restart" : "P to resume"}
+        {/* Main game board */}
+        <div className="relative">
+          <canvas
+            ref={canvasRef}
+            width={W}
+            height={H}
+            className="rounded-xl border border-white/10 bg-black/30"
+          />
+
+          {(isPaused || isGameOver) && (
+            <div className="absolute inset-0 flex items-center justify-center rounded-xl border border-white/10 bg-black/55 text-center">
+              <div>
+                <div className="text-lg font-semibold text-white">
+                  {isGameOver ? "Game Over" : "Paused"}
+                </div>
+                <div className="mt-1 text-sm text-zinc-300">
+                  Press {isGameOver ? "R to restart" : "P to resume"}
+                </div>
               </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
+
+        {/* Next piece preview */}
+        <PiecePreview piece={nextPiece} label="NEXT" />
       </div>
 
-      <div className="relative mt-4 flex gap-2">
+      <div className="relative mt-3 flex gap-2">
         <button
           onClick={() => setIsPaused((v) => !v)}
-          className="flex-1 rounded-xl border border-white/10 bg-white/[0.06] px-3 py-2 text-xs font-medium text-white hover:bg-white/[0.10]"
+          className="flex-1 rounded-lg border border-white/10 bg-white/[0.06] px-3 py-1.5 text-xs font-medium text-white hover:bg-white/[0.10]"
         >
-          {isPaused ? "Resume" : "Pause"}
+          {isPaused ? "Resume (P)" : "Pause (P)"}
         </button>
         <button
           onClick={reset}
-          className="flex-1 rounded-xl border border-white/10 bg-white/[0.06] px-3 py-2 text-xs font-medium text-white hover:bg-white/[0.10]"
+          className="flex-1 rounded-lg border border-white/10 bg-white/[0.06] px-3 py-1.5 text-xs font-medium text-white hover:bg-white/[0.10]"
         >
-          Reset
+          Reset (R)
         </button>
       </div>
     </div>
