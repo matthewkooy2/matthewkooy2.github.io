@@ -113,6 +113,12 @@ function ToolPill({ name, delay }: { name: string; delay: number }) {
   );
 }
 
+const CATEGORY_GLOW: Record<string, string> = {
+  "Computer Science & Math": "from-indigo-500/60 via-indigo-400/40 to-indigo-500/60",
+  "Data Science": "from-cyan-500/60 via-cyan-400/40 to-cyan-500/60",
+  Economics: "from-fuchsia-500/60 via-fuchsia-400/40 to-fuchsia-500/60",
+};
+
 function CourseCard({
   course,
   category,
@@ -124,10 +130,14 @@ function CourseCard({
 }) {
   return (
     <div
-      className={`reveal-on-scroll opacity-0 translate-y-4 group rounded-xl border ${CATEGORY_BORDERS[category]} bg-gradient-to-br ${CATEGORY_COLORS[category]} p-3 backdrop-blur transition-all duration-300 hover:scale-[1.02] hover:-translate-y-0.5`}
+      className="reveal-on-scroll opacity-0 scale-95 group relative"
       style={{ transitionDelay: `${delay}ms` }}
     >
-      <p className="text-sm font-medium text-zinc-100">{course}</p>
+      {/* Gradient border glow effect */}
+      <div className={`absolute -inset-[1px] rounded-xl bg-gradient-to-r ${CATEGORY_GLOW[category]} opacity-0 blur-sm transition-opacity duration-300 group-hover:opacity-100`} />
+      <div className={`relative rounded-xl border ${CATEGORY_BORDERS[category]} bg-gradient-to-br ${CATEGORY_COLORS[category]} p-3 backdrop-blur transition-all duration-300 group-hover:bg-white/[0.08] group-hover:border-white/25`}>
+        <p className="text-sm font-medium text-zinc-100">{course}</p>
+      </div>
     </div>
   );
 }
