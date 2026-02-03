@@ -1,6 +1,7 @@
 // src/app/page.tsx
 import Link from "next/link";
 import TetrisMini from "@/app/components/TetrisMini";
+import { PROJECTS } from "@/app/projects/page";
 
 
 export default function Home() {
@@ -102,38 +103,22 @@ export default function Home() {
           </div>
 
           <div className="grid gap-4 md:grid-cols-3">
-            {[
-              {
-                title: "Stock Simulator",
-                desc: "C++ order-matching engine with O(log n) latency on 100K+ events and 2M ticks/sec ingestion.",
-                href: "/projects",
-              },
-              {
-                title: "SQL Database Emulator",
-                desc: "In-memory SQL engine in C++ with parsing, indexing, and test-driven validation.",
-                href: "/projects",
-              },
-              {
-                title: "ML Text Classifier",
-                desc: "Bernoulli Naive Bayes classifier trained on 20K+ posts with comprehensive unit testing.",
-                href: "/projects",
-              },
-            ].map((card) => (
+            {PROJECTS.slice(0, 3).map((project) => (
               <Link
-                key={card.title}
-                href={card.href}
+                key={project.id}
+                href="/projects"
                 className="group rounded-2xl border border-black/10 bg-white/60 p-5 transition hover:-translate-y-0.5 hover:bg-white dark:border-white/10 dark:bg-white/[0.04] dark:hover:bg-white/[0.07]"
               >
                 <div className="flex items-start justify-between gap-3">
                   <h3 className="text-sm font-semibold text-zinc-950 dark:text-zinc-50">
-                    {card.title}
+                    {project.title}
                   </h3>
                   <span className="text-zinc-400 transition group-hover:text-zinc-600 dark:group-hover:text-zinc-200">
                     ↗
                   </span>
                 </div>
                 <p className="mt-2 text-sm leading-6 text-zinc-600 dark:text-zinc-300">
-                  {card.desc}
+                  {project.description}
                 </p>
 
                 <div className="mt-4 h-px w-full bg-black/5 dark:bg-white/10" />

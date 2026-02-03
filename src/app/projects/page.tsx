@@ -12,7 +12,18 @@ type Project = {
   code?: string; // github
 };
 
-const PROJECTS: Project[] = [
+// Projects ordered newest first - add new projects at the top
+export const PROJECTS: Project[] = [
+  {
+    id: "nba-stats-predictor",
+    category: "Machine Learning",
+    title: "NBA Stats Predictor",
+    description:
+      "End-to-end Python ML pipeline using feature engineering, time-series CV, and CatBoost, beating rolling-average baselines by 15% on held-out seasons.",
+    image: "/projects/NBAML.png",
+    tags: ["Python", "Machine Learning", "CatBoost", "SQLite"],
+    code: "https://github.com/matthewkooy2",
+  },
   {
     id: "stock-simulator",
     category: "Systems",
