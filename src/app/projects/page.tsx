@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-type Project = {
+export type Project = {
   id: string;
   category: string; // e.g., "Embedded", "ML", "Web"
   title: string;
@@ -10,6 +10,7 @@ type Project = {
   tags: string[];
   href?: string; // live/demo
   code?: string; // github
+  details?: string; // extended description for detail page
 };
 
 // Projects ordered newest first - add new projects at the top
@@ -22,7 +23,7 @@ export const PROJECTS: Project[] = [
       "End-to-end Python ML pipeline using feature engineering, time-series CV, and CatBoost, beating rolling-average baselines by 15% on held-out seasons.",
     image: "/projects/NBAML.png",
     tags: ["Python", "Machine Learning", "CatBoost", "SQLite"],
-    code: "https://github.com/matthewkooy2",
+    code: "https://github.com/matthewkooy2/NBAPredictions",
   },
   {
     id: "stock-simulator",
@@ -32,7 +33,7 @@ export const PROJECTS: Project[] = [
       "C++ order-matching engine with O(log n) latency on 100K+ events and 2M ticks/sec market data ingestion.",
     image: "/projects/trading.avif",
     tags: ["C++", "Data Structures", "Performance", "Algorithms"],
-    code: "https://github.com/matthewkooy2",
+    details: "Add your detailed description here.",
   },
   {
     id: "sql-emulator",
@@ -42,7 +43,7 @@ export const PROJECTS: Project[] = [
       "In-memory SQL engine in C++ with parsing, indexing, and test-driven validation for structured queries.",
     image: "/projects/SQLexamp.png",
     tags: ["C++", "Databases", "Parsing", "Indexing"],
-    code: "https://github.com/matthewkooy2",
+    details: "Add your detailed description here.",
   },
   {
     id: "ml-classifier",
@@ -52,7 +53,7 @@ export const PROJECTS: Project[] = [
       "Bernoulli Naive Bayes classifier in C++ trained on 20K+ posts with 25 unit tests for validation.",
     image: "/projects/MLTEXT.jpg",
     tags: ["C++", "Machine Learning", "NLP", "Testing"],
-    code: "https://github.com/matthewkooy2",
+    details: "Add your detailed description here.",
   },
   {
     id: "puzzle-solver",
@@ -62,7 +63,7 @@ export const PROJECTS: Project[] = [
       "Explores 1M+ states in under 2 seconds using BFS and DFS optimization strategies.",
     image: "/projects/BFSDFS.webp",
     tags: ["C++", "BFS", "DFS", "Optimization"],
-    code: "https://github.com/matthewkooy2",
+    details: "Add your detailed description here.",
   },
 ];
 
@@ -83,6 +84,17 @@ function IconCode(props: { className?: string }) {
       <path
         fill="currentColor"
         d="M8.7 16.3 3.4 12l5.3-4.3 1.3 1.6L6.7 12l3.3 2.7-1.3 1.6Zm6.6 0-1.3-1.6 3.3-2.7-3.3-2.7 1.3-1.6 5.3 4.3-5.3 4.3Zm-3.6 4.2-1.9-.5 4.4-16 1.9.5-4.4 16Z"
+      />
+    </svg>
+  );
+}
+
+function IconInfo(props: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" className={props.className}>
+      <path
+        fill="currentColor"
+        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"
       />
     </svg>
   );
@@ -131,7 +143,7 @@ function ProjectCard({ p }: { p: Project }) {
               <IconExternal className="h-4 w-4" />
             </Link>
           )}
-          {p.code && (
+          {p.code ? (
             <Link
               href={p.code}
               target="_blank"
@@ -141,6 +153,15 @@ function ProjectCard({ p }: { p: Project }) {
               title="Code"
             >
               <IconCode className="h-4 w-4" />
+            </Link>
+          ) : (
+            <Link
+              href={`/projects/${p.id}`}
+              className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 bg-black/30 text-zinc-100 backdrop-blur transition hover:bg-black/40"
+              aria-label="View details"
+              title="Details"
+            >
+              <IconInfo className="h-4 w-4" />
             </Link>
           )}
         </div>
