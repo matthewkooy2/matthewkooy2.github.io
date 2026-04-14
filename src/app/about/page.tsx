@@ -242,8 +242,8 @@ export default function AboutPage() {
               </p>
               <p className="mt-4 text-base leading-relaxed text-zinc-300">
                 {/* Placeholder for additional content */}
-                I'm passionate about leveraging data to solve complex problems and create meaningful impact.
-                Whether it's building high-performance systems, automating workflows, or uncovering insights
+                I&apos;m passionate about leveraging data to solve complex problems and create meaningful impact.
+                Whether it&apos;s building high-performance systems, automating workflows, or uncovering insights
                 through analytics, I thrive at the intersection of technology and economics.
               </p>
             </div>

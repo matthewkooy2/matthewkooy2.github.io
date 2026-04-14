@@ -111,11 +111,10 @@ export default function ProjectDetailPage() {
           <div className="flex items-start gap-3">
             <span className="text-amber-400">⚠️</span>
             <div>
-              <h3 className="font-medium text-amber-200">Source Code Unavailable</h3>
+              <h3 className="font-medium text-amber-200">Source Code Not Public</h3>
               <p className="mt-1 text-sm text-amber-200/70">
-                This project was completed as part of university coursework. Due to academic integrity policies,
-                the source code cannot be publicly shared. However, I&apos;m happy to discuss the implementation
-                details and my approach during an interview.
+                The repository for this project is not linked publicly here. I&apos;m happy to discuss the
+                implementation, architecture, and tradeoffs in more detail during an interview or conversation.
               </p>
             </div>
           </div>

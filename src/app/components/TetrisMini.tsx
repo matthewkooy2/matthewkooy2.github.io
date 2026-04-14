@@ -348,7 +348,9 @@ export default function TetrisMini() {
 
   // Use a ref to track the next piece for spawning
   const nextPieceRef = useRef(nextPiece);
-  nextPieceRef.current = nextPiece;
+  useEffect(() => {
+    nextPieceRef.current = nextPiece;
+  }, [nextPiece]);
 
   function lockAndSpawn(
     currPiece: Piece,
@@ -403,7 +405,6 @@ export default function TetrisMini() {
     }, 450);
 
     return () => window.clearInterval(interval);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [board, isPaused, isGameOver]);
 
   // Canvas render

@@ -16,6 +16,17 @@ export type Project = {
 // Projects ordered newest first - add new projects at the top
 export const PROJECTS: Project[] = [
   {
+    id: "fantasy-baseball-daily-briefing",
+    category: "Sports Analytics",
+    title: "Fantasy Baseball Daily Briefing",
+    description:
+      "Python pipeline that uses APIs, scraping, and statistical analysis to email daily matchup, injury, waiver, and lineup optimization insights.",
+    image: "/projects/baseballproj.png",
+    tags: ["Python", "APIs", "Scraping", "Statistics", "Optimization"],
+    details:
+      "Built a daily fantasy baseball assistant that compiles MLB probable starters, hitter matchups, injuries, off days, and waiver-wire targets into a single morning email. The workflow pulls live data, evaluates roster context, and surfaces the decisions that matter before lineups lock.\n\nThe system also includes matchup acquisition optimization, using recent performance, opponent context, and team needs to highlight pickup opportunities with the strongest short-term upside.",
+  },
+  {
     id: "nba-stats-predictor",
     category: "Machine Learning",
     title: "NBA Stats Predictor",
