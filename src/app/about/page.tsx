@@ -36,7 +36,7 @@ function useScrollReveal() {
 }
 
 // Skill data
-const LANGUAGES = ["Python", "C++", "SQL", "R", "Next.js"];
+const LANGUAGES = ["Python", "C++", "SQL", "R", "React", "Next.js"];
 
 const TOOLS = [
   "Pandas",
@@ -47,6 +47,10 @@ const TOOLS = [
   "Git",
   "Docker",
   "PostgreSQL",
+  "Vite",
+  "Supabase",
+  "Express",
+  "Salesforce",
   "Jupyter",
   "VS Code",
 ];

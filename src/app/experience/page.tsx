@@ -48,6 +48,29 @@ type Experience = {
 
 const EXPERIENCES: Experience[] = [
   {
+    id: "team-financial-group",
+    title: "Software Engineer Intern",
+    company: "Team Financial Group",
+    location: "Grand Rapids, MI",
+    dates: "March 2026 — Present",
+    type: "work",
+    logo: "/TFGLogoMark.png",
+    bullets: [
+      "Independently designed, built, and deployed a full-stack customer portal using React, Vite, Supabase, and Express, enabling authenticated customers to access agreements, payments, documents, and account-specific portal data",
+      "Automated daily CSV ingestion workflows to generate sales reports, update Salesforce records, and streamline recurring business reporting, reducing manual data entry and operational turnaround time",
+    ],
+    skills: [
+      "React",
+      "Vite",
+      "Supabase",
+      "Express",
+      "Salesforce",
+      "CSV Automation",
+      "Data Pipelines",
+      "Full-Stack Development",
+    ],
+  },
+  {
     id: "michigan-blockchain",
     title: "Software Engineer, Development Team",
     company: "Michigan Blockchain Club",

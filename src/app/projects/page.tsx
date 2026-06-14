@@ -8,6 +8,7 @@ export type Project = {
   description: string;
   image: string; // path in /public
   tags: string[];
+  context?: string;
   href?: string; // live/demo
   code?: string; // github
   details?: string; // extended description for detail page
@@ -15,6 +16,26 @@ export type Project = {
 
 // Projects ordered newest first - add new projects at the top
 export const PROJECTS: Project[] = [
+  {
+    id: "tfg-customer-portal",
+    category: "Full-Stack Development",
+    title: "Team Financial Group Customer Portal",
+    description:
+      "Built and deployed a full-stack customer portal for authenticated users to access agreements, payments, documents, and account-specific data.",
+    image: "/projects/tfg-customer-portal.svg",
+    tags: [
+      "React",
+      "Vite",
+      "Supabase",
+      "Express",
+      "Microsoft Graph",
+      "SharePoint",
+      "Salesforce",
+    ],
+    context: "Professional Project",
+    details:
+      "Developed backend services supporting authentication, document workflows, account-specific data access, and operational admin tooling while keeping private company and customer information secure.",
+  },
   {
     id: "fantasy-baseball-daily-briefing",
     category: "Sports Analytics",

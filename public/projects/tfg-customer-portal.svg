@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">Team Financial Group Customer Portal</title>
+  <desc id="desc">Abstract customer portal interface illustration</desc>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#18181b"/>
+      <stop offset="0.55" stop-color="#312e81"/>
+      <stop offset="1" stop-color="#164e63"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#818cf8"/>
+      <stop offset="0.5" stop-color="#e879f9"/>
+      <stop offset="1" stop-color="#67e8f9"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="35"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="675" fill="url(#background)"/>
+  <circle cx="180" cy="100" r="190" fill="#a855f7" opacity=".18" filter="url(#glow)"/>
+  <circle cx="1060" cy="590" r="240" fill="#22d3ee" opacity=".16" filter="url(#glow)"/>
+  <g opacity=".18" stroke="#fff">
+    <path d="M0 112.5h1200M0 225h1200M0 337.5h1200M0 450h1200M0 562.5h1200"/>
+    <path d="M200 0v675M400 0v675M600 0v675M800 0v675M1000 0v675"/>
+  </g>
+  <rect x="170" y="105" width="860" height="465" rx="28" fill="#09090b" opacity=".82" stroke="#fff" stroke-opacity=".2" stroke-width="2"/>
+  <rect x="170" y="105" width="860" height="68" rx="28" fill="#fff" opacity=".06"/>
+  <circle cx="216" cy="139" r="8" fill="#818cf8"/>
+  <circle cx="242" cy="139" r="8" fill="#e879f9"/>
+  <circle cx="268" cy="139" r="8" fill="#67e8f9"/>
+  <rect x="214" y="215" width="215" height="310" rx="18" fill="#fff" opacity=".06" stroke="#fff" stroke-opacity=".12"/>
+  <rect x="463" y="215" width="523" height="135" rx="18" fill="#fff" opacity=".07" stroke="#fff" stroke-opacity=".12"/>
+  <rect x="463" y="384" width="245" height="141" rx="18" fill="#fff" opacity=".06" stroke="#fff" stroke-opacity=".12"/>
+  <rect x="741" y="384" width="245" height="141" rx="18" fill="#fff" opacity=".06" stroke="#fff" stroke-opacity=".12"/>
+  <rect x="250" y="253" width="143" height="12" rx="6" fill="url(#accent)"/>
+  <rect x="250" y="289" width="105" height="9" rx="4.5" fill="#fff" opacity=".4"/>
+  <rect x="250" y="319" width="126" height="9" rx="4.5" fill="#fff" opacity=".25"/>
+  <rect x="250" y="349" width="92" height="9" rx="4.5" fill="#fff" opacity=".25"/>
+  <path d="M508 311l72-45 65 24 73-39 74 18 93-39 55 27" fill="none" stroke="url(#accent)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <g fill="#fff" opacity=".35">
+    <rect x="502" y="427" width="128" height="11" rx="5.5"/>
+    <rect x="502" y="458" width="164" height="9" rx="4.5" opacity=".6"/>
+    <rect x="780" y="427" width="128" height="11" rx="5.5"/>
+    <rect x="780" y="458" width="164" height="9" rx="4.5" opacity=".6"/>
+  </g>
+</svg>

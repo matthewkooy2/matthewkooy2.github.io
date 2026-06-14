@@ -55,7 +55,9 @@ export default function ProjectDetailPage() {
             <span className="inline-flex items-center rounded-md border border-white/10 bg-white/[0.06] px-2.5 py-1 text-xs font-semibold text-zinc-200">
               {project.category}
             </span>
-            <span className="text-xs text-zinc-500">Academic Project</span>
+            <span className="text-xs text-zinc-500">
+              {project.context ?? "Academic Project"}
+            </span>
           </div>
           <h1 className="mt-4 text-3xl font-semibold tracking-tight text-zinc-50">
             {project.title}
