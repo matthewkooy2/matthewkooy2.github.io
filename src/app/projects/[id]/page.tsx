@@ -52,13 +52,21 @@ export default function ProjectDetailPage() {
         {/* Project image */}
         <div className="mt-8 overflow-hidden rounded-xl border border-zinc-800">
           <div className="relative aspect-video w-full">
-            <Image
-              src={project.image}
-              alt={project.title}
-              fill
-              className="object-cover"
-              priority
-            />
+            {project.image ? (
+              <Image
+                src={project.image}
+                alt={project.title}
+                fill
+                className="object-cover"
+                priority
+              />
+            ) : (
+              <div className="flex h-full items-center justify-center bg-gradient-to-br from-indigo-950 via-zinc-950 to-zinc-900">
+                <span className="font-mono text-4xl font-semibold tracking-[0.3em] text-zinc-200 md:text-5xl">
+                  {project.title.toUpperCase()}
+                </span>
+              </div>
+            )}
           </div>
         </div>
 

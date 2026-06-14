@@ -6,7 +6,7 @@ export type Project = {
   category: string; // e.g., "Embedded", "ML", "Web"
   title: string;
   description: string;
-  image: string; // path in /public
+  image?: string; // path in /public
   tags: string[];
   context?: string;
   href?: string; // live/demo
@@ -16,6 +16,24 @@ export type Project = {
 
 // Projects ordered newest first - add new projects at the top
 export const PROJECTS: Project[] = [
+  {
+    id: "lewis",
+    category: "Developer Tools",
+    title: "Lewis",
+    description:
+      "A local-controlled personal AI assistant built around trust, approval, memory, and safe coding workflows.",
+    tags: [
+      "Python",
+      "FastAPI",
+      "AI Agents",
+      "Local-first",
+      "Developer Tools",
+      "Approval Workflows",
+    ],
+    context: "Personal Project",
+    details:
+      "Lewis combines chat, memory, local artifacts, and a guarded Freestyle coding lane. It can propose code changes inside isolated worktrees, generate and validate exact edit bundles, run allowlisted checks, and require human review before changes are applied or merged.\n\nDesigned for auditability rather than blind autonomy, its workflows use explicit permissions, approval records, review artifacts, rollback-aware application, and fail-closed behavior. DeepSeek powers proposal and edit generation within those controls.",
+  },
   {
     id: "tfg-customer-portal",
     category: "Full-Stack Development",
@@ -137,14 +155,22 @@ function ProjectCard({ p }: { p: Project }) {
     <article className="group overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900/40 transition-colors duration-200 hover:border-zinc-700 hover:bg-zinc-900/70">
       {/* image */}
       <div className="relative h-44 w-full overflow-hidden border-b border-zinc-800">
-        <Image
-          src={p.image}
-          alt={p.title}
-          fill
-          className="object-cover transition-transform duration-300 group-hover:scale-[1.02]"
-          sizes="(max-width: 768px) 100vw, 33vw"
-          priority={false}
-        />
+        {p.image ? (
+          <Image
+            src={p.image}
+            alt={p.title}
+            fill
+            className="object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+            sizes="(max-width: 768px) 100vw, 33vw"
+            priority={false}
+          />
+        ) : (
+          <div className="flex h-full items-center justify-center bg-gradient-to-br from-indigo-950 via-zinc-950 to-zinc-900">
+            <span className="font-mono text-2xl font-semibold tracking-[0.3em] text-zinc-200">
+              {p.title.toUpperCase()}
+            </span>
+          </div>
+        )}
 
         {/* subtle image overlay */}
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-zinc-950/80 via-zinc-950/10 to-transparent" />
