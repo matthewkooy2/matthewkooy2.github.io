@@ -134,31 +134,24 @@ function IconInfo(props: { className?: string }) {
 
 function ProjectCard({ p }: { p: Project }) {
   return (
-    <article
-      className={[
-        "group relative overflow-hidden rounded-2xl",
-        "border border-white/10 bg-white/[0.04] shadow-[0_0_0_1px_rgba(255,255,255,0.04)]",
-        "backdrop-blur",
-        "transition hover:border-white/20 hover:bg-white/[0.06]",
-      ].join(" ")}
-    >
+    <article className="group overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900/40 transition-colors duration-200 hover:border-zinc-700 hover:bg-zinc-900/70">
       {/* image */}
-      <div className="relative h-44 w-full overflow-hidden">
+      <div className="relative h-44 w-full overflow-hidden border-b border-zinc-800">
         <Image
           src={p.image}
           alt={p.title}
           fill
-          className="object-cover transition duration-500 group-hover:scale-[1.03]"
+          className="object-cover transition-transform duration-300 group-hover:scale-[1.02]"
           sizes="(max-width: 768px) 100vw, 33vw"
           priority={false}
         />
 
         {/* subtle image overlay */}
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-black/10" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-zinc-950/80 via-zinc-950/10 to-transparent" />
 
         {/* category pill */}
         <div className="absolute left-4 top-4">
-          <span className="inline-flex items-center rounded-md border border-white/10 bg-black/30 px-2.5 py-1 text-xs font-semibold text-zinc-100 backdrop-blur">
+          <span className="inline-flex items-center rounded-md border border-zinc-800 bg-zinc-950/80 px-2.5 py-1 text-xs font-semibold text-zinc-200">
             {p.category}
           </span>
         </div>
@@ -168,7 +161,7 @@ function ProjectCard({ p }: { p: Project }) {
           {p.href && (
             <Link
               href={p.href}
-              className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 bg-black/30 text-zinc-100 backdrop-blur transition hover:bg-black/40"
+              className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-zinc-800 bg-zinc-950/80 text-zinc-200 transition-colors hover:border-zinc-700 hover:text-white"
               aria-label="Open project"
               title="Open"
             >
@@ -180,7 +173,7 @@ function ProjectCard({ p }: { p: Project }) {
               href={p.code}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 bg-black/30 text-zinc-100 backdrop-blur transition hover:bg-black/40"
+              className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-zinc-800 bg-zinc-950/80 text-zinc-200 transition-colors hover:border-zinc-700 hover:text-white"
               aria-label="View code"
               title="Code"
             >
@@ -189,7 +182,7 @@ function ProjectCard({ p }: { p: Project }) {
           ) : (
             <Link
               href={`/projects/${p.id}`}
-              className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 bg-black/30 text-zinc-100 backdrop-blur transition hover:bg-black/40"
+              className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-zinc-800 bg-zinc-950/80 text-zinc-200 transition-colors hover:border-zinc-700 hover:text-white"
               aria-label="View details"
               title="Details"
             >
@@ -205,25 +198,19 @@ function ProjectCard({ p }: { p: Project }) {
           {p.title}
         </h3>
 
-        <p className="mt-2 text-sm leading-6 text-zinc-300">{p.description}</p>
+        <p className="mt-2 text-sm leading-6 text-zinc-400">{p.description}</p>
 
         {/* tags */}
         <div className="mt-4 flex flex-wrap gap-2">
           {p.tags.map((t) => (
             <span
               key={`${p.id}-${t}`}
-              className="rounded-md border border-white/10 bg-white/[0.03] px-2 py-1 text-xs font-semibold text-zinc-200"
+              className="rounded-md border border-zinc-800 bg-zinc-900/60 px-2 py-1 font-mono text-xs text-zinc-400"
             >
               {t}
             </span>
           ))}
         </div>
-      </div>
-
-      {/* hover glow */}
-      <div className="pointer-events-none absolute inset-0 opacity-0 transition group-hover:opacity-100">
-        <div className="absolute -left-16 -top-16 h-64 w-64 rounded-full bg-fuchsia-500/10 blur-3xl" />
-        <div className="absolute -right-16 -bottom-20 h-72 w-72 rounded-full bg-indigo-500/10 blur-3xl" />
       </div>
     </article>
   );
@@ -232,31 +219,11 @@ function ProjectCard({ p }: { p: Project }) {
 export default function ProjectsPage() {
   return (
     <div className="relative w-full">
-      {/* full-bleed background (grid + glow) */}
-      <div className="pointer-events-none absolute inset-0 -z-10">
-        {/* grid */}
-        <div
-          className="absolute inset-0 opacity-[0.18]"
-          style={{
-            backgroundImage:
-              "linear-gradient(to right, rgba(255,255,255,0.07) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.07) 1px, transparent 1px)",
-            backgroundSize: "48px 48px",
-          }}
-        />
-        {/* vignettes */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(255,255,255,0.08),transparent_55%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,rgba(0,0,0,0.55),transparent_45%)]" />
-        {/* glows */}
-        <div className="absolute -top-56 left-1/2 h-[820px] w-[820px] -translate-x-1/2 rounded-full bg-gradient-to-br from-indigo-500/18 via-fuchsia-500/12 to-cyan-500/10 blur-3xl" />
-        <div className="absolute bottom-[-420px] left-[-360px] h-[820px] w-[820px] rounded-full bg-gradient-to-br from-fuchsia-500/14 via-indigo-500/10 to-transparent blur-3xl" />
-        <div className="absolute bottom-[-380px] right-[-420px] h-[760px] w-[760px] rounded-full bg-gradient-to-br from-cyan-500/12 via-indigo-500/10 to-transparent blur-3xl" />
-      </div>
-
-      <main className="mx-auto max-w-6xl px-6 py-12">
-        <h1 className="text-3xl font-semibold tracking-tight text-zinc-50">
+      <main className="mx-auto max-w-6xl px-6 py-16 md:py-24">
+        <h1 className="text-3xl font-semibold tracking-tight text-zinc-50 md:text-4xl">
           Projects
         </h1>
-        <p className="mt-4 max-w-3xl text-xl font-semibold leading-snug tracking-tight text-zinc-100">
+        <p className="mt-3 max-w-2xl text-base text-zinc-400 md:text-lg">
           A curated set of builds across software, analytics, and systems.
         </p>
 

@@ -250,7 +250,7 @@ function PiecePreview({ piece, label }: { piece: Piece | null; label: string }) 
         ref={canvasRef}
         width={size}
         height={size}
-        className="rounded border border-white/10 bg-black/20"
+        className="rounded border border-zinc-800 bg-zinc-950/60"
       />
     </div>
   );
@@ -515,12 +515,8 @@ export default function TetrisMini() {
       onFocus={() => setHasFocus(true)}
       onBlur={() => setHasFocus(false)}
       onMouseDown={() => containerRef.current?.focus()}
-      className="relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] p-5 backdrop-blur outline-none"
+      className="relative overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900/40 p-5 outline-none"
     >
-      {/* subtle glow */}
-      <div className="pointer-events-none absolute -top-28 -right-28 h-72 w-72 rounded-full bg-gradient-to-br from-indigo-500/25 via-fuchsia-500/15 to-cyan-500/15 blur-3xl" />
-      <div className="pointer-events-none absolute -bottom-28 -left-28 h-72 w-72 rounded-full bg-gradient-to-br from-cyan-500/18 via-indigo-500/12 to-transparent blur-3xl" />
-
       <div className="relative flex items-start justify-between gap-3">
         <div>
           <p className="text-sm font-medium text-zinc-50">Mini Tetris</p>
@@ -529,12 +525,12 @@ export default function TetrisMini() {
           </p>
         </div>
 
-        <div className="text-right text-xs text-zinc-300">
+        <div className="text-right text-xs text-zinc-400">
           <div>
-            Score: <span className="font-semibold text-white">{score}</span>
+            Score: <span className="font-semibold text-zinc-50">{score}</span>
           </div>
           <div>
-            Lines: <span className="font-semibold text-white">{lines}</span>
+            Lines: <span className="font-semibold text-zinc-50">{lines}</span>
           </div>
         </div>
       </div>
@@ -554,16 +550,16 @@ export default function TetrisMini() {
             ref={canvasRef}
             width={W}
             height={H}
-            className="rounded-xl border border-white/10 bg-black/30"
+            className="rounded-lg border border-zinc-800 bg-zinc-950/60"
           />
 
           {(isPaused || isGameOver) && (
-            <div className="absolute inset-0 flex items-center justify-center rounded-xl border border-white/10 bg-black/55 text-center">
+            <div className="absolute inset-0 flex items-center justify-center rounded-lg border border-zinc-800 bg-zinc-950/80 text-center">
               <div>
-                <div className="text-lg font-semibold text-white">
+                <div className="text-lg font-semibold text-zinc-50">
                   {isGameOver ? "Game Over" : "Paused"}
                 </div>
-                <div className="mt-1 text-sm text-zinc-300">
+                <div className="mt-1 text-sm text-zinc-400">
                   Press {isGameOver ? "R to restart" : "P to resume"}
                 </div>
               </div>
@@ -578,13 +574,13 @@ export default function TetrisMini() {
       <div className="relative mt-3 flex gap-2">
         <button
           onClick={() => setIsPaused((v) => !v)}
-          className="flex-1 rounded-lg border border-white/10 bg-white/[0.06] px-3 py-1.5 text-xs font-medium text-white hover:bg-white/[0.10]"
+          className="flex-1 rounded-md border border-zinc-800 bg-zinc-900 px-3 py-1.5 text-xs font-medium text-zinc-200 transition-colors hover:border-zinc-700 hover:bg-zinc-800"
         >
           {isPaused ? "Resume (P)" : "Pause (P)"}
         </button>
         <button
           onClick={reset}
-          className="flex-1 rounded-lg border border-white/10 bg-white/[0.06] px-3 py-1.5 text-xs font-medium text-white hover:bg-white/[0.10]"
+          className="flex-1 rounded-md border border-zinc-800 bg-zinc-900 px-3 py-1.5 text-xs font-medium text-zinc-200 transition-colors hover:border-zinc-700 hover:bg-zinc-800"
         >
           Reset (R)
         </button>

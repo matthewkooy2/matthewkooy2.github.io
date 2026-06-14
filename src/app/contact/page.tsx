@@ -58,20 +58,20 @@ function ContactRow({ item }: { item: ContactItem }) {
       href={item.href}
       target={item.external ? "_blank" : undefined}
       rel={item.external ? "noopener noreferrer" : undefined}
-      className="group flex items-center justify-between gap-3 rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 backdrop-blur transition hover:bg-white/[0.07]"
+      className="group flex items-center justify-between gap-3 rounded-lg border border-zinc-800 bg-zinc-900/40 px-4 py-3 transition-colors hover:border-zinc-700 hover:bg-zinc-900/70"
     >
       <div className="flex min-w-0 items-center gap-3">
-        <span className="inline-flex h-10 w-10 flex-none items-center justify-center rounded-xl border border-white/10 bg-white/[0.06] text-zinc-100">
+        <span className="inline-flex h-10 w-10 flex-none items-center justify-center rounded-lg border border-zinc-800 bg-zinc-900 text-zinc-300">
           {item.icon}
         </span>
         <div className="min-w-0">
           <div className="text-sm font-semibold text-zinc-50">{item.label}</div>
-          <div className="truncate text-sm text-zinc-300">{item.value}</div>
+          <div className="truncate text-sm text-zinc-400">{item.value}</div>
         </div>
       </div>
 
-      <span className="flex-none text-zinc-500 transition group-hover:text-zinc-200">
-        ↗
+      <span className="flex-none text-zinc-500 transition-colors group-hover:text-zinc-300">
+        &rarr;
       </span>
     </Link>
   );
@@ -118,30 +118,21 @@ export default function ContactPage() {
   };
 
   return (
-    // FULL-BLEED WRAPPER (this is what fixes the “square cutoff”)
     <div className="relative w-full">
-      {/* Full page glow */}
-      <div className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute -top-48 left-1/2 h-[780px] w-[780px] -translate-x-1/2 rounded-full bg-gradient-to-br from-indigo-500/20 via-fuchsia-500/15 to-cyan-500/15 blur-3xl" />
-        <div className="absolute bottom-[-360px] left-[-360px] h-[780px] w-[780px] rounded-full bg-gradient-to-br from-fuchsia-500/18 via-indigo-500/12 to-transparent blur-3xl" />
-        <div className="absolute bottom-[-260px] right-[-360px] h-[720px] w-[720px] rounded-full bg-gradient-to-br from-cyan-500/14 via-indigo-500/10 to-transparent blur-3xl" />
-      </div>
-
-      {/* Content container */}
-      <main className="mx-auto max-w-5xl px-6 py-12">
-        <h1 className="text-3xl font-semibold tracking-tight text-zinc-50">
+      <main className="mx-auto max-w-5xl px-6 py-16 md:py-24">
+        <h1 className="text-3xl font-semibold tracking-tight text-zinc-50 md:text-4xl">
           Contact
         </h1>
 
-        <p className="mt-4 max-w-3xl text-2xl font-semibold leading-snug tracking-tight text-zinc-100">
-          Discover my work and see where you can find me
+        <p className="mt-3 max-w-2xl text-base text-zinc-400 md:text-lg">
+          The best ways to reach me &mdash; happy to connect about roles, projects, or questions.
         </p>
 
-        <div className="mt-10 grid gap-6 md:grid-cols-2">
-          <section className="rounded-3xl border border-white/10 bg-white/[0.04] p-5 backdrop-blur md:p-6">
+        <div className="mt-10 grid gap-4 md:grid-cols-2">
+          <section className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-5 md:p-6">
             <div className="flex items-center justify-between">
-              <h2 className="text-sm font-semibold text-zinc-50">Social</h2>
-              <span className="text-xs text-zinc-400">Links open in new tab</span>
+              <h2 className="text-xs font-semibold uppercase tracking-wider text-zinc-500">Social</h2>
+              <span className="text-xs text-zinc-500">Opens in new tab</span>
             </div>
 
             <div className="mt-4 flex flex-col gap-3">
@@ -151,8 +142,8 @@ export default function ContactPage() {
             </div>
           </section>
 
-          <section className="rounded-3xl border border-white/10 bg-white/[0.04] p-5 backdrop-blur md:p-6">
-            <h2 className="text-sm font-semibold text-zinc-50">Direct</h2>
+          <section className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-5 md:p-6">
+            <h2 className="text-xs font-semibold uppercase tracking-wider text-zinc-500">Direct</h2>
 
             <div className="mt-4 flex flex-col gap-3">
               <ContactRow item={emails[0]} />
