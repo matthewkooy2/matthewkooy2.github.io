@@ -5,11 +5,13 @@ The bar reveal is inspired by Bklit UI (https://bklit.com/docs/components/bar-ch
 the editorial type pairing is inspired by Manus (https://manus.im/features/webapp).
 Those references are design inspiration, not installed UI components.
 
-## Local design studies
+## Gallery iteration and preserved design studies
 
-The three studies at `/designs` use the existing Motion dependency and custom
-React, CSS, and SVG implementations. No Motion+ source or paid templates were
-copied. The following public references inform their interaction patterns:
+Gallery is the homepage on `codex/gallery-iteration`. Its active components,
+styles, and motion bindings are in `src/app/components/gallery/`. The original
+three studies at `/designs` remain on `codex/portfolio-scroll-redesign` at commit
+`e3d5460`. All use Motion and custom React, CSS, and SVG implementations. No
+Motion+ source or paid templates were copied. Their references are preserved below:
 
 - Editorial: [Kokonut Scroll Text](https://kokonutui.com/docs/texts/scroll-text)
   for progressive word highlighting; Manus for editorial layout and typography.

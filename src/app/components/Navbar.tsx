@@ -38,6 +38,6 @@ function Navigation({ pathname }: { pathname: string }) {
 
 export default function Navbar() {
   const pathname = usePathname();
-  if (pathname === "/designs" || pathname.startsWith("/designs/")) return null;
+  if (pathname === "/") return null;
   return <Navigation key={pathname} pathname={pathname} />;
 }

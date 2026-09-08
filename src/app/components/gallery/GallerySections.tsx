@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { projects, stack } from "./data";
-import styles from "./Designs.module.css";
+import { projects, stack } from "./content";
+import styles from "./Gallery.module.css";
 
 export function GalleryStack() {
   return <section className={styles.fanScene} id="stack" data-fan-scene aria-labelledby="stack-heading">

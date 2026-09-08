@@ -1,34 +1,44 @@
-# Matthew Kooy — Portfolio
+# Matthew Kooy — Gallery Portfolio
 
-## Local scrolling redesign
+## Local Gallery iteration
 
-Branch: `codex/portfolio-scroll-redesign`. This work is local-only; no deployment configuration was changed.
+Active branch: `codex/gallery-iteration`. Gallery is now the homepage, without
+the design switcher or comparison screens. Its typography, fan-to-grid stack,
+horizontal project reel, and animated ring chart are retained.
 
 ```bash
 npm ci
 npm run dev -- --hostname 127.0.0.1 --port 3000
 ```
 
-Open [the local preview](http://127.0.0.1:3000). The homepage uses Motion for scroll-linked technology chapters, layered work cards, a path background, and NBA dataset bars. Chapter buttons and a skip link provide direct navigation. Reduced-motion preferences and short viewports retain readable, unpinned content. The original detail routes remain accessible; Mini Tetris is expandable below the contact section.
+Open [the Gallery homepage](http://127.0.0.1:3000).
+The former `/designs/gallery` URL redirects to `/`.
+About, experience, project details, and contact remain available.
 
-The implementation lives in `src/app/components/ScrollPortfolio.tsx` and its CSS module. See `THIRD_PARTY_NOTICES.md` for reference attribution. Run `npm run build` and `npm run lint` to validate changes.
+### Where to iterate
 
-Before public deployment, address the existing Next.js 16.1.5 dependency advisories reported by `npm audit`. The redesign preserves the existing framework version and adds only Motion.
+All active Gallery code is in `src/app/components/gallery/`:
 
-### Compare three alternatives
+- `GalleryPortfolio.tsx`: page composition, navigation, hero, and footer.
+- `GallerySections.tsx`: technology cards and project reel.
+- `WarehouseChart.tsx`: interactive concentric-ring chart.
+- `useGalleryMotion.ts`: scroll bindings and reduced-motion fallbacks.
+- `Gallery.module.css`: Gallery-only styles and responsive layouts.
+- `content.ts`: technologies, project summaries, and verified data volumes.
 
-Open [Design studies](http://127.0.0.1:3000/designs) to compare Editorial, Signal,
-and Gallery. The current homepage is unchanged by these alternative studies.
-The comparison table links directly to every hero, stack, work, and data section.
+Run `npm run build` and `npm run lint` to validate changes. Short/narrow screens
+use normal flow or a native horizontal reel; reduced-motion users retain complete
+text, charts, and project navigation.
 
-Alternative sections live in `src/app/designs/EditorialSections.tsx`,
-`SignalSections.tsx`, and `GallerySections.tsx`. Shared content is in `data.ts`;
-chart treatments are in `WarehouseDisplay.tsx`, and scroll bindings are in
-`useStudyMotion.ts`. This separation supports combining sections after selection.
+### Preserved comparison version
 
-Reduced motion keeps text and charts complete and the project reel natively
-scrollable. On narrow or short screens, full-screen pinning becomes normal flow
-or a touch-scrollable reel. The animations do not intercept wheel/touch events.
+The original homepage and all three design studies are saved on
+`codex/portfolio-scroll-redesign` at commit `e3d5460`. Switch to that branch to
+revisit `/designs`; do not discard uncommitted iteration work when switching.
+No commits have been pushed and no deployment configuration was changed.
+
+See `THIRD_PARTY_NOTICES.md` for design references. Before public deployment,
+address the existing Next.js 16.1.5 dependency advisories reported by `npm audit`.
 
 ---
 

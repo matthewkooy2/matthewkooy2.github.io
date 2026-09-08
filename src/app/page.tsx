@@ -1,5 +1,5 @@
-import ScrollPortfolio from "./components/ScrollPortfolio";
+import GalleryPortfolio from "./components/gallery/GalleryPortfolio";
 
 export default function Home() {
-  return <ScrollPortfolio />;
+  return <GalleryPortfolio />;
 }

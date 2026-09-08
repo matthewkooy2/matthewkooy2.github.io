@@ -6,7 +6,7 @@ import { scroll, animate } from "motion";
 type ScrollOptions = NonNullable<Parameters<typeof scroll>[1]>;
 const clamp = (value: number) => Math.max(0, Math.min(1, value));
 
-export function useStudyMotion(ref: RefObject<HTMLDivElement | null>) {
+export function useGalleryMotion(ref: RefObject<HTMLDivElement | null>) {
   useEffect(() => {
     const root = ref.current;
     if (!root) return;
@@ -16,7 +16,7 @@ export function useStudyMotion(ref: RefObject<HTMLDivElement | null>) {
     let stops: (() => void)[] = [];
     let frame = 0;
     let disposed = false;
-    let navHeight = 56;
+    let navHeight = 72;
 
     const bind = (target: HTMLElement, callback: (progress: number) => void, offset: ScrollOptions["offset"] = ["start end", "end start"]) => {
       stops.push(scroll(callback, { target, offset }));
@@ -27,13 +27,12 @@ export function useStudyMotion(ref: RefObject<HTMLDivElement | null>) {
       all<HTMLElement | SVGElement>("[data-animated]").forEach(element => {
         ["transform", "opacity", "clip-path", "stroke-dashoffset", "stroke-dasharray"].forEach(property => element.style.removeProperty(property));
       });
-      all("[data-count]").forEach(element => { element.textContent = `${Number(element.dataset.count).toFixed(1)}M`; });
       all("[data-reel-jump]").forEach(button => button.removeAttribute("aria-pressed"));
     };
 
     function setup() {
       reset();
-      navHeight = root!.querySelector("nav")?.getBoundingClientRect().height ?? 56;
+      navHeight = root!.querySelector("[data-gallery-nav]")?.getBoundingClientRect().height ?? 72;
       root!.dataset.fullMotion = String(!reduced.matches && large.matches);
       root!.dataset.reelMotion = String(!reduced.matches && large.matches);
       if (reduced.matches) {
@@ -50,60 +49,11 @@ export function useStudyMotion(ref: RefObject<HTMLDivElement | null>) {
 
       const hero = root!.querySelector<HTMLElement>("#hero")!;
       const heroLines = all("[data-hero-line]");
-      const panels = all("[data-hero-panel]");
-      const paths = root!.querySelector<SVGElement>("[data-hero-paths]");
       bind(hero, progress => {
         heroLines.forEach((line, i) => { line.style.transform = `translateX(${progress * (i % 2 ? 55 : -40)}px)`; });
-        panels.forEach((panel, i) => { panel.style.transform = `translateY(${-progress * (45 + i * 45)}px) rotate(${progress * (i - 1) * 4}deg)`; });
-        if (paths) paths.style.transform = `translate(${progress * 120}px, ${-progress * 90}px)`;
       }, [`start ${navHeight}px`, "end start"]);
       const progressLine = root!.querySelector<HTMLElement>("[data-page-progress]");
       if (progressLine) stops.push(scroll((progress: number) => { progressLine.style.transform = `scaleX(${progress})`; }));
-
-      all("[data-reading]").forEach(section => {
-        const words = Array.from(section.querySelectorAll<HTMLElement>("[data-word]"));
-        bind(section, progress => words.forEach((word, i) => { word.style.opacity = String(.16 + .84 * clamp(progress * (words.length + 3) - i)); }), ["start 85%", "end 45%"]);
-      });
-      all("[data-chapter-reveal]").forEach(chapter => {
-        const line = chapter.querySelector<HTMLElement>("[data-chapter-line]");
-        bind(chapter, progress => {
-          const entered = clamp(progress);
-          chapter.style.transform = `translateY(${(1 - entered) * 40}px)`;
-          if (line) line.style.transform = `scaleX(${entered})`;
-        }, ["start 90%", "start 35%"]);
-      });
-      all("[data-case]").forEach(section => {
-        const content = section.querySelector<HTMLElement>("[data-case-content]")!;
-        bind(section, progress => { content.style.transform = `translateY(${(1 - clamp(progress)) * 70}px)`; }, ["start 90%", "start 25%"]);
-      });
-
-      all("[data-bento]").forEach((card, i) => {
-        const chips = Array.from(card.querySelectorAll<HTMLElement>("[data-chip]"));
-        bind(card, progress => {
-          const entered = clamp(progress);
-          card.style.transform = `translateY(${(1 - entered) * (70 + i * 15)}px) rotateX(${(1 - entered) * 9}deg)`;
-          chips.forEach((chip, j) => {
-            const amount = clamp((entered - j * .08) / .6);
-            chip.style.transform = `translateY(${(1 - amount) * 22}px)`;
-            chip.style.opacity = String(.25 + amount * .75);
-          });
-        }, ["start 95%", "start 30%"]);
-      });
-      const timeline = root!.querySelector<HTMLElement>("[data-timeline-line]");
-      const workSection = root!.querySelector<HTMLElement>("#work");
-      if (timeline && workSection) bind(workSection, progress => { timeline.style.transform = `scaleY(${progress})`; }, ["start 60%", "end 60%"]);
-      all("[data-signal-case]").forEach(section => {
-        const path = section.querySelector<SVGElement>("[data-flow-path]")!;
-        const nodes = Array.from(section.querySelectorAll<HTMLElement>("[data-pipeline-node]"));
-        bind(section, progress => {
-          path.style.strokeDashoffset = String(1 - progress);
-          nodes.forEach((node, i) => {
-            const entered = clamp((progress - i * .15) / .55);
-            node.style.transform = `translateY(${(1 - entered) * 25}px)`;
-            node.style.opacity = String(.3 + entered * .7);
-          });
-        }, ["start 85%", "start 15%"]);
-      });
 
       const fanScene = root!.querySelector<HTMLElement>("[data-fan-scene]");
       if (fanScene && large.matches) {
@@ -170,13 +120,9 @@ export function useStudyMotion(ref: RefObject<HTMLDivElement | null>) {
       }
 
       all("[data-warehouse]").forEach(section => {
-        const bars = Array.from(section.querySelectorAll<HTMLElement>("[data-chart-bar]"));
         const rings = Array.from(section.querySelectorAll<SVGElement>("[data-ring]"));
-        const counts = Array.from(section.querySelectorAll<HTMLElement>("[data-count]"));
         bind(section, progress => {
-          bars.forEach((bar, i) => { bar.style.transform = `scaleX(${clamp((progress - i * .1) / .7)})`; });
           rings.forEach((ring, i) => { ring.style.strokeDasharray = `${Number(ring.dataset.ring) * clamp((progress - i * .1) / .7)} 100`; });
-          counts.forEach((count, i) => { count.textContent = `${(Number(count.dataset.count) * clamp((progress - i * .08) / .7)).toFixed(1)}M`; });
         }, ["start 90%", "end 85%"]);
       });
     }
