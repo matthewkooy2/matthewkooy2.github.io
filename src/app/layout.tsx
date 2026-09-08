@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     default: "Matthew Kooy",
     template: "%s | Matthew Kooy",
   },
-  description: "Portfolio website for Matthew Kooy",
+  description: "Matthew Kooy — software, data, and AI. Engineering work at AirPLAi Sports and Team Financial Group, plus local AI tools and basketball data systems.",
 };
 
 export default function RootLayout({

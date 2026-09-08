@@ -1,3 +1,37 @@
+# Matthew Kooy — Portfolio
+
+## Local scrolling redesign
+
+Branch: `codex/portfolio-scroll-redesign`. This work is local-only; no deployment configuration was changed.
+
+```bash
+npm ci
+npm run dev -- --hostname 127.0.0.1 --port 3000
+```
+
+Open [the local preview](http://127.0.0.1:3000). The homepage uses Motion for scroll-linked technology chapters, layered work cards, a path background, and NBA dataset bars. Chapter buttons and a skip link provide direct navigation. Reduced-motion preferences and short viewports retain readable, unpinned content. The original detail routes remain accessible; Mini Tetris is expandable below the contact section.
+
+The implementation lives in `src/app/components/ScrollPortfolio.tsx` and its CSS module. See `THIRD_PARTY_NOTICES.md` for reference attribution. Run `npm run build` and `npm run lint` to validate changes.
+
+Before public deployment, address the existing Next.js 16.1.5 dependency advisories reported by `npm audit`. The redesign preserves the existing framework version and adds only Motion.
+
+### Compare three alternatives
+
+Open [Design studies](http://127.0.0.1:3000/designs) to compare Editorial, Signal,
+and Gallery. The current homepage is unchanged by these alternative studies.
+The comparison table links directly to every hero, stack, work, and data section.
+
+Alternative sections live in `src/app/designs/EditorialSections.tsx`,
+`SignalSections.tsx`, and `GallerySections.tsx`. Shared content is in `data.ts`;
+chart treatments are in `WarehouseDisplay.tsx`, and scroll bindings are in
+`useStudyMotion.ts`. This separation supports combining sections after selection.
+
+Reduced motion keeps text and charts complete and the project reel natively
+scrollable. On narrow or short screens, full-screen pinning becomes normal flow
+or a touch-scrollable reel. The animations do not intercept wheel/touch events.
+
+---
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started

@@ -48,24 +48,41 @@ type Experience = {
 
 const EXPERIENCES: Experience[] = [
   {
+    id: "airplai",
+    title: "Sports Operations Intern",
+    company: "AirPLAi Sports",
+    location: "Remote",
+    dates: "July 2026 — Present",
+    type: "work",
+    bullets: [
+      "Shipped production improvements to responsive player/team analytics profiles and video-enabled shot-chart workflows using Next.js, TypeScript, and PostgreSQL.",
+      "Replaced per-record query fan-out with batched PostgreSQL reads and added real-database regression coverage, improving latency while preserving authorization behavior.",
+      "Built a reproducible basketball multi-object-tracking pipeline spanning YOLO detection, active-player filtering, identity linking, MOT validation, and TrackEval.",
+    ],
+    skills: ["Next.js", "TypeScript", "PostgreSQL", "Python", "YOLO", "TrackEval"],
+  },
+  {
     id: "team-financial-group",
     title: "Software Engineer Intern",
     company: "Team Financial Group",
-    location: "Grand Rapids, MI",
+    location: "Hybrid",
     dates: "March 2026 — Present",
     type: "work",
     logo: "/TFGLogoMark.png",
     bullets: [
-      "Independently designed, built, and deployed a full-stack customer portal using React, Vite, Supabase, and Express, enabling authenticated customers to access agreements, payments, documents, and account-specific portal data",
-      "Automated daily CSV ingestion workflows to generate sales reports, update Salesforce records, and streamline recurring business reporting, reducing manual data entry and operational turnaround time",
+      "Built and deployed an authenticated multi-tenant customer portal using React, Express, Supabase/PostgreSQL, and Microsoft Graph for agreements, payments, documents, and account-scoped workflows.",
+      "Implemented authorization, invitations and roles, SharePoint document access, and global-admin tooling with fail-closed security behavior.",
+      "Engineered guarded Python ETL across LeaseWorks, Salesforce, Supabase, and SharePoint with deterministic validation, manual-review gates, and idempotent processing.",
+      "Added health-gated Cloud Run releases and an operations cockpit with pipeline status, run details, and aggregate database diffs for safer support and deployment.",
     ],
     skills: [
       "React",
-      "Vite",
+      "Python",
       "Supabase",
       "Express",
       "Salesforce",
-      "CSV Automation",
+      "Microsoft Graph",
+      "Cloud Run",
       "Data Pipelines",
       "Full-Stack Development",
     ],
@@ -123,6 +140,7 @@ const TYPE_LABELS: Record<string, string> = {
 function ExperienceCard({ exp, index }: { exp: Experience; index: number }) {
   return (
     <div
+      id={exp.id}
       className="reveal-on-scroll opacity-0 translate-y-6"
       style={{ transitionDelay: `${150 + index * 100}ms` }}
     >

@@ -1,0 +1,53 @@
+# Design references and third-party notices
+
+Scroll behavior uses Motion (https://motion.dev/docs/scroll).
+The bar reveal is inspired by Bklit UI (https://bklit.com/docs/components/bar-chart);
+the editorial type pairing is inspired by Manus (https://manus.im/features/webapp).
+Those references are design inspiration, not installed UI components.
+
+## Local design studies
+
+The three studies at `/designs` use the existing Motion dependency and custom
+React, CSS, and SVG implementations. No Motion+ source or paid templates were
+copied. The following public references inform their interaction patterns:
+
+- Editorial: [Kokonut Scroll Text](https://kokonutui.com/docs/texts/scroll-text)
+  for progressive word highlighting; Manus for editorial layout and typography.
+- Signal: [Kokonut Background Paths](https://kokonutui.com/docs/backgrounds/background-paths)
+  for restrained path motion and [Bklit Bar Chart](https://bklit.com/docs/components/bar-chart)
+  for interactive dataset highlighting. Signal's path geometry is custom.
+- Gallery: [Kokonut Card Stack](https://kokonutui.com/docs/cards/card-stack)
+  for a stack that opens, adapted here to scroll; [Motion scroll pinning](https://motion.dev/examples/js-scroll-pinning)
+  for horizontal motion during vertical scroll; [Bklit Ring Chart](https://bklit.com/docs/components/ring-chart)
+  for animated concentric arcs and a linked legend.
+
+The charts show supplied resume metrics. Dataset volumes are explicitly
+non-additive; ring lengths use the largest displayed dataset as their scale.
+
+## Kokonut UI Background Paths
+
+Path-generation geometry in `src/app/components/ScrollPortfolio.tsx` is adapted from
+Background Paths by @dorianbaffier: https://kokonutui.com/r/background-paths.json.
+The animation is adapted to follow page scroll.
+
+MIT License
+
+Copyright (c) 2025 kokonutUI
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

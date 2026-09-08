@@ -17,11 +17,20 @@ export type Project = {
 // Projects ordered newest first - add new projects at the top
 export const PROJECTS: Project[] = [
   {
+    id: "nba-analytics-warehouse",
+    category: "Data Engineering",
+    title: "NBA Analytics Warehouse",
+    description: "A resumable warehouse spanning 30 NBA seasons and 18.3M play-by-play events, built for reproducible basketball analysis.",
+    tags: ["Python", "DuckDB", "Parquet", "Data Quality", "ETL"],
+    context: "Personal Project",
+    details: "Covers 6.3M shots, 6.1M possessions, and 2.1M player-matchup rows. These are separate datasets, not additive slices of the event total.\n\nImplemented content-addressed source artifacts, idempotent backfills, identity reconciliation, coverage tracking, and data-quality quarantines so ingestion can resume safely and analysis can be reproduced.",
+  },
+  {
     id: "lewis",
     category: "Developer Tools",
     title: "Lewis",
     description:
-      "A local-controlled personal AI assistant built around trust, approval, memory, and safe coding workflows.",
+      "A local-first AI engineering assistant with durable memory, isolated Git worktrees, and human-approved code changes.",
     tags: [
       "Python",
       "FastAPI",
@@ -52,7 +61,7 @@ export const PROJECTS: Project[] = [
     ],
     context: "Professional Project",
     details:
-      "Developed backend services supporting authentication, document workflows, account-specific data access, and operational admin tooling while keeping private company and customer information secure.",
+      "Built multi-tenant authentication, invitations and roles, SharePoint document access, and global-admin tooling with fail-closed authorization.\n\nEngineered guarded Python ETL across LeaseWorks, Salesforce, Supabase, and SharePoint with deterministic validation, manual-review gates, and idempotent processing. Added health-gated Cloud Run releases and an operations cockpit for pipeline status, run details, and aggregate database diffs.",
   },
   {
     id: "fantasy-baseball-daily-briefing",
@@ -70,9 +79,11 @@ export const PROJECTS: Project[] = [
     category: "Machine Learning",
     title: "NBA Stats Predictor",
     description:
-      "End-to-end Python ML pipeline using feature engineering, time-series CV, and CatBoost, beating rolling-average baselines by 15% on held-out seasons.",
+      "CatBoost models trained on 10,000+ games from 60 players, improving held-out MAE by 0.62%–1.90% over a 10-game rolling baseline.",
     image: "/projects/NBAML.png",
-    tags: ["Python", "Machine Learning", "CatBoost", "SQLite"],
+    tags: ["Python", "CatBoost", "FastAPI", "React", "SQLite"],
+    context: "Personal Project",
+    details: "Used 19 rolling, opponent, venue, and rest features to predict player statistics, comparing held-out mean absolute error against a 10-game rolling baseline.\n\nServed predictions through FastAPI and React with SQLite caching, Pydantic validation, retry/backoff, rate limiting, and interactive performance views.",
     code: "https://github.com/matthewkooy2/NBAPredictions",
   },
   {
