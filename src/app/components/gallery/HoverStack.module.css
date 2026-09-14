@@ -1,0 +1,74 @@
+.hoverPin { padding-block: 1.5rem; }
+.hoverPin [data-fan-heading] { margin-bottom: 1.5rem; }
+.hoverPin [data-fan-heading] h2 { font-size: clamp(2.1rem, 3.25vw, 2.75rem); margin-top: .5rem; }
+/* Reserve the quiet shelf space, but let a long card extend the page naturally. */
+.hoverCanvas { min-height: 26rem; }
+.hoverGrid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; align-items: start; min-width: 0; position: relative; perspective: 1400px; }
+.hoverAnchor { --hover-surface: var(--gallery-paper); --hover-ink: #222222; --hover-muted: #555555; --hover-line: #c5c5c5; --hover-accent: var(--gallery-blue-ink); position: relative; min-width: 0; transform-origin: center 4.75rem; }
+.hoverAnchor[data-category="1"] { --hover-surface: var(--gallery-stone); --hover-muted: #414141; --hover-line: #969696; }
+.hoverAnchor[data-category="2"] { --hover-surface: #505050; --hover-ink: #fafafa; --hover-muted: #d6d6d6; --hover-line: #787878; --hover-accent: #b4bfff; }
+.hoverAnchor[data-category="3"] { --hover-surface: #202020; --hover-ink: #ededed; --hover-muted: #bcbcbc; --hover-line: #5b5b5b; --hover-accent: var(--gallery-blue-on-dark); }
+.hoverAnchor[data-expanded="true"], .hoverAnchor:hover, .hoverAnchor:focus-within { z-index: 5; }
+.magneticAnchor { position: absolute; top: 0; left: 0; width: 100%; height: 9.5rem; pointer-events: none; }
+.hoverCard { position: relative; display: flex; flex-direction: column; width: 100%; height: 9.5rem; min-height: 0; padding: .875rem 1rem; border: 1px solid var(--hover-line); border-radius: .6rem; background: var(--hover-surface); color: var(--hover-ink); text-align: left; overflow: hidden; box-shadow: 0 12px 25px #00000028, inset 0 1px 0 #ffffff20; transition: border-color .18s, box-shadow .18s; }
+.hoverCard::before { content: ""; position: absolute; top: -1px; left: 1rem; width: 2rem; height: 3px; background: var(--hover-accent); transition: width .35s; }
+.hoverCard[data-expanded="true"] { border-color: var(--hover-accent); box-shadow: 0 22px 40px #00000045; }
+.hoverCard[data-expanded="true"]::before { width: calc(100% - 2rem); }
+.cardTrigger { display: block; flex-shrink: 0; width: 100%; text-align: left; cursor: pointer; }
+.cardTrigger:focus-visible { outline: 2px solid var(--hover-accent); outline-offset: 3px; border-radius: .2rem; }
+.hoverCardMeta { display: flex; justify-content: space-between; align-items: center; gap: .5rem; width: 100%; font: .75rem/1.2 var(--font-geist-mono), monospace; color: var(--hover-muted); }
+.hoverCardMeta > span:last-child { font-size: 1.5rem; color: var(--hover-accent); transition: opacity .15s; }
+.hoverCard[data-expanded="true"] .hoverCardMeta > span:last-child { opacity: 0; }
+.hoverCardTitle { display: flex; align-items: baseline; justify-content: space-between; gap: .5rem; width: 100%; margin: .7rem 0 .5rem; font-size: clamp(1.125rem, 1.8vw, 1.6rem); line-height: 1.15; font-weight: 500; letter-spacing: -.045em; }
+.hoverCardTitle > span { color: var(--hover-accent); font-size: .875rem; transition: rotate .35s; }
+.hoverCard[data-expanded="true"] .hoverCardTitle > span { rotate: 90deg; }
+.cardClose { position: absolute; top: .3rem; right: .4rem; min-width: 2.75rem; min-height: 2.75rem; font-size: 1.5rem; color: var(--hover-muted); cursor: pointer; opacity: 0; visibility: hidden; pointer-events: none; transition: opacity .15s; }
+.hoverCard[data-expanded="true"] .cardClose { opacity: 1; visibility: visible; pointer-events: auto; }
+.cardClose:hover { color: var(--hover-accent); }
+.cardContent { flex: none; min-height: 0; overflow: visible; }
+.technologyList { display: flex; flex-wrap: wrap; align-items: baseline; gap: .15rem .35rem; list-style: none; margin: 0; padding: 0; }
+.technologyList li { position: relative; display: flex; align-items: center; gap: .35rem; min-width: 0; font-size: .875rem; line-height: 1.6; color: var(--hover-muted); }
+.technologyList button { display: flex; align-items: baseline; justify-content: space-between; gap: .5rem; min-width: 0; width: 100%; text-align: left; cursor: pointer; border-radius: .2rem; transition: color .2s, background-color .2s; }
+.technologyList button > span:first-child { overflow-wrap: anywhere; }
+.technologyDot { color: var(--hover-muted); }
+.technologyList li:last-child .technologyDot { display: none; }
+.technologyArrow { display: none; color: var(--hover-accent); }
+.technologyList[data-expanded="true"] { flex-direction: column; flex-wrap: nowrap; align-items: stretch; gap: .1rem; }
+.technologyList[data-expanded="true"] li { width: 100%; }
+.technologyList[data-expanded="true"] button { min-height: 1.9rem; padding: .1rem .3rem; }
+.technologyList[data-expanded="true"] .technologyDot { display: none; }
+.technologyList[data-expanded="true"] .technologyArrow { display: block; opacity: 0; transition: opacity .2s; }
+.technologyList button[aria-pressed="true"] { color: var(--hover-accent); background: #88888818; }
+.technologyList button:hover { color: var(--hover-accent); }
+.technologyList button[aria-pressed="true"] .technologyArrow, .technologyList button:hover .technologyArrow { opacity: 1; }
+.cardWork { display: none; }
+.hoverCard[data-expanded="true"] .cardWork { display: block; }
+.workFocus { margin: .75rem 0; padding-top: .75rem; border-top: 1px solid var(--hover-line); color: var(--hover-muted); font-size: .875rem; line-height: 1.5; }
+.workExamples { display: grid; gap: 1rem; }
+.workExamples a { display: block; }
+.workExamples h4 { display: flex; justify-content: space-between; gap: .5rem; font-size: .875rem; font-weight: 600; line-height: 1.5; color: var(--hover-accent); }
+.workExamples a:hover h4 { text-decoration: underline; text-underline-offset: .25em; }
+.workExamples p, .workGeneral { margin-top: .3rem; color: var(--hover-ink); font-size: 1rem; line-height: 1.55; }
+.moreDetail { margin-top: .75rem; min-height: 2.75rem; color: var(--hover-accent); font-size: .875rem; cursor: pointer; }
+.moreDetail:hover { text-decoration: underline; text-underline-offset: .25em; }
+.hoverHint { margin-top: .75rem; color: #bcbcbc; text-align: center; font: .75rem/1.6 var(--font-geist-mono), monospace; }
+
+@media (max-width: 1100px) {
+  .hoverGrid { gap: .65rem; }
+}
+@media (max-width: 899px) {
+  .hoverCanvas { min-height: 0; }
+  .hoverGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 1.25rem; }
+  .technologyList[data-expanded="true"] button { min-height: 2.75rem; }
+}
+@media (max-width: 600px) {
+  .hoverGrid { grid-template-columns: minmax(0, 1fr); }
+  .hoverCardTitle { font-size: 1.25rem; }
+}
+@media (hover: none), (pointer: coarse) {
+  .technologyList[data-expanded="true"] button { min-height: 2.75rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hoverAnchor, .hoverCard, .hoverCard::before, .hoverCardMeta > span, .hoverCardTitle > span, .cardClose, .technologyList button, .technologyArrow { transition: none; }
+  .hoverCard { transform: none !important; }
+}

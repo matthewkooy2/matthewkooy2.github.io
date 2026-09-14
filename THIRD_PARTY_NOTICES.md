@@ -26,6 +26,31 @@ Motion+ source or paid templates were copied. Their references are preserved bel
 The charts show supplied resume metrics. Dataset volumes are explicitly
 non-additive; ring lengths use the largest displayed dataset as their scale.
 
+Section 01's Magnetic Shelf takes interaction inspiration from
+[Kokonut Spotlight Cards](https://kokonutui.com/docs/cards/spotlight-cards)
+and use [Motion springs](https://motion.dev/docs/react-use-spring) for bounded
+pointer attraction and tilt. It is a custom implementation; no component source
+or additional UI package was copied.
+
+The expanding-card trial uses [Motion layout animation](https://motion.dev/docs/react-layout-animations)
+to move the same technology labels from horizontal to vertical positions without
+stretching the text. Card height and work-detail opacity are animated separately.
+
+## Temporary Michigan hero mark
+
+`public/block-m.png` was sourced from the University of Michigan Center for RNA
+Biomedicine [brand downloads](https://rna.umich.edu/resources/center-for-rna-biomedicine-brand-downloads/)
+([original PNG](https://rna.umich.edu/wp-content/uploads/2024/07/block_m-hex.png)).
+The block M is a University of Michigan trademark, not an MIT-licensed asset.
+It is used here at the user's request for a local animation prototype. Review
+the university's permitted-use and modification requirements or replace it with
+a personal mark before public deployment; no endorsement or blanket license is
+implied. The grayscale/blue particle treatment is part of this local experiment.
+
+The image-to-particle-sphere interaction is independently implemented in canvas
+from the user's supplied screen recording of a Motion example. No paid Motion+
+source, photograph, or template was accessed or copied.
+
 ## Kokonut UI Background Paths
 
 Path-generation geometry in `src/app/components/ScrollPortfolio.tsx` is adapted from
