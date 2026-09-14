@@ -1,9 +1,22 @@
 @import "tailwindcss";
 
 :root {
-  --background: #09090b;
-  --foreground: #d4d4d8;
-  --accent: #818cf8;
+  --background: #181818;
+  --foreground: #f2f2f2;
+  --accent: #8fa0ff;
+  --panel: #252525;
+  --muted: #b5b5b5;
+  --line: #484848;
+  --soft: #333333;
+  --gallery-blue: #223dea;
+  --gallery-blue-ink: #1830cc;
+  --gallery-blue-on-dark: #8fa0ff;
+  --gallery-silver: #d4d4d4;
+  --gallery-paper: #f0f0f0;
+  --gallery-stone: #bcbcbc;
+  --gallery-graphite: #292929;
+  --gallery-charcoal: #171717;
+  --nav-height: 4.5rem;
 }
 
 @theme inline {
@@ -15,19 +28,31 @@
 
 html {
   color-scheme: dark;
+  scroll-padding-top: calc(var(--nav-height) + 1rem);
 }
 
 body {
   background-color: var(--background);
   color: var(--foreground);
   font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
-  background-image:
-    radial-gradient(ellipse 70% 50% at 50% -10%, rgba(99, 102, 241, 0.10), transparent 60%),
-    linear-gradient(to right, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
-  background-size: 100% 100%, 56px 56px, 56px 56px;
-  background-attachment: fixed, fixed, fixed;
 }
+
+::selection { background: var(--accent); color: var(--background); }
+.site-header { position: sticky; top: 0; z-index: 50; background: var(--background); border-bottom: 1px solid var(--line); }
+.site-nav { height: calc(var(--nav-height) - 1px); max-width: 90rem; margin: auto; padding: 0 clamp(1.25rem, 4vw, 4rem); display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.site-brand { font-size: 1rem; font-weight: 550; letter-spacing: -.035em; white-space: nowrap; }
+.site-links { display: flex; align-items: center; gap: clamp(1rem, 2.5vw, 2.5rem); }
+.site-links a, .site-menu-toggle { font-size: .875rem; color: var(--muted); padding: .6rem 0; }
+.site-links a:hover, .site-links a[aria-current], .site-mobile-links a:hover { color: var(--accent); }
+.site-menu-toggle { cursor: pointer; }
+.site-mobile-links { position: absolute; inset: 100% 0 auto; padding: 1rem 1.5rem; border-bottom: 1px solid var(--line); background: var(--background); display: grid; gap: .5rem; }
+.site-mobile-links a { padding: .6rem; }
+.site-page-links, .site-menu-toggle { display: none; }
+.skip-link { position: fixed; top: .75rem; left: 1rem; z-index: 100; background: var(--accent); color: var(--background); padding: .75rem 1rem; transform: translateY(-200%); }
+.skip-link:focus { transform: translateY(0); }
+@media (min-width: 900px) { .site-page-links { display: contents; } }
+@media (max-width: 899px) { .site-menu-toggle { display: block; } }
+@media (max-width: 420px) { .site-links { gap: .8rem; } .site-brand { font-size: .875rem; } .site-nav { padding-inline: 1rem; } }
 
 /* Consistent focus styling for keyboard navigation */
 :focus-visible {

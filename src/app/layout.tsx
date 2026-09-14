@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/app/components/Navbar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -18,7 +17,7 @@ export const metadata: Metadata = {
     default: "Matthew Kooy",
     template: "%s | Matthew Kooy",
   },
-  description: "Portfolio website for Matthew Kooy",
+  description: "Matthew Kooy — software, data, and AI. Engineering work at AirPLAi Sports and Team Financial Group, plus local AI tools and basketball data systems.",
 };
 
 export default function RootLayout({
@@ -29,7 +28,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <Navbar />
         {children}
       </body>
     </html>
