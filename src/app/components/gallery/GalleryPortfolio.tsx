@@ -35,7 +35,7 @@ export default function GalleryPortfolio() {
           <div className={styles.heroMain}>
             <div className={styles.heroIdentity}>
               <h1><span data-hero-line data-animated>Matthew</span><span data-hero-line data-animated>Kooy<span className={styles.accentDot}>.</span></span></h1>
-              <p className={styles.heroIntroduction}>I build software and data systems, from financial workflows at Team Financial Group to basketball analytics at AirPLAi.</p>
+              <p className={styles.heroIntroduction}>I build and maintain production software and data systems for real users.</p>
               <div className={styles.heroLinks}>
                 <a href="https://github.com/matthewkooy2" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
                 <a href="https://www.linkedin.com/in/matthew-kooy" target="_blank" rel="noopener noreferrer">LinkedIn <span aria-hidden="true">↗</span></a>
@@ -44,7 +44,7 @@ export default function GalleryPortfolio() {
             <HeroParticleMark />
           </div>
           <div className={styles.heroBottom}>
-            <a href="#stack">Scroll to explore <span aria-hidden="true">↓</span></a>
+            <a href="#stack" aria-label="Explore portfolio"><span aria-hidden="true">↓</span></a>
           </div>
         </section>
         <GalleryStack />

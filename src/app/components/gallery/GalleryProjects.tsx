@@ -18,13 +18,9 @@ export default function GalleryProjects() {
               <h3 id={`project-${project.id}-title`}><Link href={`#project-${project.id}`}>{project.title}</Link></h3>
               <p className={styles.projectDescription}>{project.description}</p>
               <ul className={styles.projectTags} aria-label={`${project.title} technologies`}>{project.tags.map(tag => <li key={tag}>{tag}</li>)}</ul>
-              <div className={styles.projectLinks}>
-                {project.details && project.details !== "Add your detailed description here." && <details className={styles.projectDetails}>
-                  <summary aria-label={`Explore ${project.title}`}>Explore project <span aria-hidden="true">+</span></summary>
-                  <div>{project.details.split("\n\n").map(paragraph => <p key={paragraph}>{paragraph}</p>)}</div>
-                </details>}
-                {project.code && <a href={project.code} target="_blank" rel="noopener noreferrer" aria-label={`View ${project.title} source code`}>Code <span aria-hidden="true">↗</span></a>}
-              </div>
+              {project.code && <div className={styles.projectLinks}>
+                <a href={project.code} target="_blank" rel="noopener noreferrer" aria-label={`View ${project.title} source code`}>Code <span aria-hidden="true">↗</span></a>
+              </div>}
             </div>
           </article>
         ))}

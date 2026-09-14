@@ -17,7 +17,7 @@ npm run dev -- --hostname 127.0.0.1 --port 3000
 
 Open [the Gallery homepage](http://127.0.0.1:3000).
 The former `/designs/gallery` URL redirects to `/`.
-Legacy `/about`, `/experience`, `/projects`, `/projects/:id`, and `/contact` URLs return to their matching homepage anchors. Employer and club fragments on old experience links are preserved. Project details expand within the homepage cards; external source, social, and email links retain their destinations.
+Legacy `/about`, `/experience`, `/projects`, `/projects/:id`, and `/contact` URLs return to their matching homepage anchors. Employer and club fragments on old experience links are preserved. Project cards show summaries and technologies; external source, social, and email links retain their destinations.
 
 ### Where to iterate
 
@@ -27,12 +27,11 @@ All active Gallery code is in `src/app/components/gallery/`:
 - `GalleryExtracurriculars.tsx`: section 03's college-club roles, contribution summaries, and skills.
 - `GallerySections.tsx`: the toolkit export and section 02 work-experience reel.
 - `GalleryProjects.tsx`: section 04's complete project grid, with scroll-entry motion and blue hover/focus accents.
-- `src/app/projects/data.ts`: the shared project catalog for homepage summaries and inline details. Add a record here to list a new project.
+- `src/app/projects/data.ts`: the shared project catalog for homepage summaries. Add a record here to list a new project.
 - `GalleryStack.tsx`: section 01's Magnetic Shelf with one expanding card at a
   time. Hover, keyboard focus, or tapping selects content.
 - `HoverStackCard.tsx` / `stackMotion.ts` / `HoverStack.module.css`: bounded
   magnetic attraction, downward card expansion, label reflow, and their local styles.
-- `StackDetailDialog.tsx`: optional “More detail” view for the selected technology.
 - `stackDetails.ts`: evidence-grounded usage copy for the 23 listed technologies.
 - `WarehouseChart.tsx`: interactive concentric-ring chart.
 - `useGalleryMotion.ts`: scroll bindings and reduced-motion fallbacks.
@@ -49,7 +48,7 @@ to its natural content height. The same technology labels move from a wrapped ho
 vertical list using position-only layout animation, followed by the work details
 fading in inside that card. There is no height cap or inner scrolling area: the
 grid and section grow with the card so the complete text remains in normal page
-flow. The optional deep dive retains the complete technology explanation.
+flow.
 The fan still spreads on scroll entry, but no longer pins this section to a
 viewport-sized frame. Its entry offsets use the section top so expansion cannot
 rewind the scroll animation. The project reel's pinning is unchanged.
@@ -90,7 +89,7 @@ Personal projects remain in the homepage’s Projects section.
 
 Section 04 lists all nine existing projects in a two-column gallery, becoming a
 single column below 720px. Each entry includes its category, description, full
-technology list, expandable details when documented, and a source link when one is already documented.
+technology list and a source link when one is already documented.
 The staggered lateral/vertical entry motion settles as each card enters; content
 stays readable without JavaScript or with reduced motion. The warehouse feature
 is preserved immediately after the project grid as section 05.

@@ -18,10 +18,9 @@ type Props = {
   cancelPreview: () => void;
   onPointerActivity: (inside: boolean) => void;
   onClose: () => void;
-  onDetail: (trigger: HTMLButtonElement) => void;
 };
 
-export default function HoverStackCard({ index, active, selectedTechnology, pointer, reduceMotion, onPreview, cancelPreview, onPointerActivity, onClose, onDetail }: Props) {
+export default function HoverStackCard({ index, active, selectedTechnology, pointer, reduceMotion, onPreview, cancelPreview, onPointerActivity, onClose }: Props) {
   const group = stack[index];
   const technology = group.items[selectedTechnology];
   const usage = stackDetails[technology];
@@ -115,7 +114,6 @@ export default function HoverStackCard({ index, active, selectedTechnology, poin
                   {usage.examples.map(example => <Link key={example.title} href={example.href}><h4>{example.title}<span aria-hidden="true">↗</span></h4><p>{example.description}</p></Link>)}
                 </div>
               ) : <p className={styles.workGeneral}>{usage.description}</p>}
-              <button type="button" className={styles.moreDetail} aria-haspopup="dialog" onClick={event => onDetail(event.currentTarget)}>More detail <span aria-hidden="true">↗</span></button>
             </motion.div>
           </motion.div>
         </div>

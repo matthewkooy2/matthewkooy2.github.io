@@ -5,7 +5,6 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { stack } from "./content";
 import { type StackPointer } from "./stackMotion";
 import HoverStackCard from "./HoverStackCard";
-import StackDetailDialog from "./StackDetailDialog";
 import ParticleCheckpoint from "./ParticleCheckpoint";
 import styles from "./Gallery.module.css";
 import hoverStyles from "./HoverStack.module.css";
@@ -13,17 +12,14 @@ import hoverStyles from "./HoverStack.module.css";
 export default function GalleryStack() {
   const [selection, setSelection] = useState({ category: 0, technology: 0 });
   const [previewOpen, setPreviewOpen] = useState(false);
-  const [detail, setDetail] = useState<{ index: number; trigger: HTMLButtonElement } | null>(null);
   const pendingHover = useRef<ReturnType<typeof setTimeout> | null>(null);
   const pendingClose = useRef<ReturnType<typeof setTimeout> | null>(null);
   const canvas = useRef<HTMLDivElement>(null);
   const pointerInside = useRef(false);
   const keyboardInside = useRef(false);
   const restoringFocus = useRef(false);
-  const detailOpen = useRef(false);
   const pointer = useMotionValue<StackPointer>(null);
   const reduceMotion = useReducedMotion() !== false;
-  const dismiss = useCallback(() => { detailOpen.current = false; setDetail(null); }, []);
   const cancelPreview = useCallback(() => {
     if (pendingHover.current !== null) clearTimeout(pendingHover.current);
     pendingHover.current = null;
@@ -38,7 +34,7 @@ export default function GalleryStack() {
     // Brief grace for moving around an expanding card or between cards.
     pendingClose.current = setTimeout(() => {
       pendingClose.current = null;
-      if (!pointerInside.current && !keyboardInside.current && !detailOpen.current) setPreviewOpen(false);
+      if (!pointerInside.current && !keyboardInside.current) setPreviewOpen(false);
     }, 220);
   }, [cancelClose, cancelPreview]);
   const closePreview = useCallback((restoreFocus = false) => {
@@ -57,7 +53,7 @@ export default function GalleryStack() {
 
   useEffect(() => {
     const outsidePress = (event: PointerEvent) => {
-      if (!detailOpen.current && event.target instanceof Node && !canvas.current?.contains(event.target)) closePreview();
+      if (event.target instanceof Node && !canvas.current?.contains(event.target)) closePreview();
     };
     document.addEventListener("pointerdown", outsidePress);
     return () => {
@@ -86,7 +82,7 @@ export default function GalleryStack() {
       className={styles.fanScene}
       id="stack" data-fan-scene aria-labelledby="stack-heading"
       onPointerMove={event => {
-        if (!reduceMotion && !detailOpen.current && event.pointerType === "mouse" && matchMedia("(hover: hover) and (pointer: fine)").matches) pointer.set({ x: event.clientX, y: event.clientY });
+        if (!reduceMotion && event.pointerType === "mouse" && matchMedia("(hover: hover) and (pointer: fine)").matches) pointer.set({ x: event.clientX, y: event.clientY });
         else if (pointer.get() !== null) pointer.set(null);
       }}
       onPointerLeave={() => pointer.set(null)}
@@ -131,17 +127,11 @@ export default function GalleryStack() {
                   else scheduleClose();
                 }}
                 onClose={() => closePreview(true)}
-                onDetail={trigger => {
-                  cancelPreview(); cancelClose(); pointer.set(null); detailOpen.current = true;
-                  setDetail({ index: i, trigger });
-                }}
               />
             ))}
           </div>
         </div>
-        <p className={hoverStyles.hoverHint}>Hover to unfold. Explore a technology to see the work.</p>
       </div>
-      {detail && <StackDetailDialog index={detail.index} initialTechnology={selection.technology} trigger={detail.trigger} onDismiss={dismiss} />}
     </section>
   );
 }

@@ -38,7 +38,6 @@ export default function HeroParticleMark() {
         className={styles.stage}
         type="button"
         aria-label="Pause particle animation"
-        aria-describedby="hero-particle-hint"
         aria-pressed={paused && !reduced}
         disabled={!ready || reduced}
         onClick={() => setPaused(value => !value)}
@@ -48,10 +47,6 @@ export default function HeroParticleMark() {
       >
         <Image className={styles.fallback} src="/block-m.png" width={1161} height={830} alt="" priority />
       </button>
-      <figcaption className={styles.caption} id="hero-particle-hint">
-        <span>Michigan · C++ · Computer vision</span>
-        <span>{reduced ? "Reduced motion" : paused ? "Paused · Click to play" : "On loop · Click to pause"} <span className={styles.captionArrow} aria-hidden="true">↗</span></span>
-      </figcaption>
     </figure>
   );
 }

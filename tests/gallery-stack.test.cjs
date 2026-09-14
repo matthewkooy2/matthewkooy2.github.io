@@ -41,10 +41,10 @@ test("the hero replaces the badge with an accessible looping animation with a st
   const html = renderToStaticMarkup(React.createElement(GalleryPortfolio));
   const hero = html.match(/<section[^>]*id="hero"[^>]*>([\s\S]*?)<\/section>/)[1];
   assert.ok(hero.includes('aria-label="Pause particle animation"'));
-  assert.ok(hero.includes('aria-describedby="hero-particle-hint"') && hero.includes('aria-pressed="false"'));
-  assert.ok(hero.includes('data-ready="false"') && hero.includes('On loop'));
+  assert.ok(hero.includes('aria-pressed="false"'));
+  assert.ok(hero.includes('data-ready="false"') && !hero.includes('<figcaption'));
   assert.ok(/<img[^>]*block-m\.png/.test(hero) && !hero.includes('<canvas'), "SSR keeps a static fallback; the shared viewport canvas mounts after hydration");
-  assert.ok(hero.includes('Matthew') && hero.includes('Kooy') && hero.includes('I build software and data systems'));
+  assert.ok(hero.includes('Matthew') && hero.includes('Kooy') && hero.includes('I build and maintain production software and data systems for real users.'));
   assert.ok(!hero.includes('heroDisc') && !hero.includes('Software<br'));
 });
 
@@ -448,7 +448,7 @@ test("hero click, touch and keyboard controls pause the automatic loop", () => {
   };
   const mockedRequire = name => name === "react" ? hookReact : name.endsWith(".css") ? { __esModule: true, default: {} } : name === "./mountParticleJourney" ? load(path.join(gallery, "mountParticleJourney.ts")) : require(name);
   vm.runInThisContext(`(function(require,module,exports){${source}\n})`, { filename: file })(mockedRequire, module, module.exports);
-  const render = () => { cursor = 0; const figure = module.exports.default(); return { figure, button: figure.props.children[0] }; };
+  const render = () => { cursor = 0; const figure = module.exports.default(); return { figure, button: React.Children.toArray(figure.props.children)[0] }; };
   const pressed = () => render().button.props["aria-pressed"];
   let { button } = render();
   assert.equal(button.props.onPointerEnter, undefined, "there is no binary hover activation");
@@ -514,8 +514,8 @@ test("every internal homepage link resolves to a unique anchor on the same page"
     if (/^(https?:|mailto:|tel:)/.test(href)) continue;
     assert.ok(href.startsWith("#") && ids.has(href.slice(1)), href);
   }
-  assert.ok(html.includes('<summary aria-label="Explore NBA Analytics Warehouse"'));
-  assert.ok(html.includes('content-addressed source artifacts'));
+  assert.ok(!html.includes('<details') && !html.includes('Explore project'));
+  assert.ok(html.includes('View NBA Stats Predictor source code'));
   assert.ok(!html.includes('Add your detailed description here.'));
 });
 
@@ -820,17 +820,17 @@ test("the initial view shows the cards but keeps work hidden and out of the tab 
   const { default: GalleryStack } = load(path.join(gallery, "GalleryStack.tsx"));
   const html = renderToStaticMarkup(React.createElement(GalleryStack));
   assert.equal((html.match(/aria-controls="stack-card-content-\d"/g) || []).length, 4);
-  assert.equal((html.match(/aria-haspopup="dialog"/g) || []).length, 4, "each card retains an optional deep dive");
+  assert.ok(!html.includes('aria-haspopup="dialog"') && !html.includes('More detail'));
   assert.equal((html.match(/data-fan-card="true"/g) || []).length, 4);
   assert.equal((html.match(/aria-expanded="false"/g) || []).length, 4);
   assert.equal((html.match(/id="stack-card-content-\d"[^>]*inert=""[^>]*aria-hidden="true"/g) || []).length, 4, "closed card content starts inert");
   assert.equal((html.match(/height:9.5rem/g) || []).length, 4, "all four surfaces start compact");
   assert.ok(!html.includes("stack-hover-preview"), "no separate preview underneath the shelf");
-  assert.ok(!html.includes("<dialog"), "details are closed initially");
+  assert.ok(!html.includes("<dialog"), "toolkit details stay in the cards");
   for (const name of stack.flatMap(group => group.items)) assert.ok(html.includes(name), name);
   for (const label of ["Team Financial Group", "NBA Analytics Warehouse"]) assert.ok(html.includes(label), label);
   for (const label of ["Section 01 motion designs", "Magnetic Shelf", "Elastic Rail", "Kinetic Tiles"]) assert.ok(!html.includes(label), "no comparison controls: " + label);
-  assert.ok(html.includes("Hover to unfold"));
+  assert.ok(!html.includes("Hover to unfold"));
   const ids = [...html.matchAll(/\bid="([^"]+)"/g)].map(match => match[1]);
   assert.equal(new Set(ids).size, ids.length, "each card owns unique accessible targets");
   for (const button of html.matchAll(/<button\b[^>]*>([\s\S]*?)<\/button>/g)) assert.ok(!/<(?:button|a)\b/.test(button[1]), "no nested interactive controls");
@@ -844,7 +844,7 @@ test("every expanded card puts its vertical technology controls and work inside 
       const technology = stack[index].items[selectedTechnology];
       const html = renderToStaticMarkup(React.createElement(HoverStackCard, {
         index, selectedTechnology, active: true, reduceMotion: true, pointer: motionValue(null),
-        onPreview: noop, cancelPreview: noop, onPointerActivity: noop, onClose: noop, onDetail: noop,
+        onPreview: noop, cancelPreview: noop, onPointerActivity: noop, onClose: noop,
       }));
       const article = html.match(/<article\b[^>]*>([\s\S]*?)<\/article>/)?.[1];
       assert.ok(article, technology);
